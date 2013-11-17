@@ -62,31 +62,30 @@ ltl p2_6 {[] <> !((SW_L==Green) && SW_S)}
 
 /* Synchronization channels */
 
-chan NS_WN = [0] of {bool};
-chan NE_EW = [0] of {bool};
+chan NS_WN_EW = [0] of {bool};
+chan NS_WN_SW = [0] of {bool};
+chan NE_WN_EW = [0] of {bool};
+chan NE_ES = [0] of {bool};
 chan ES_SW = [0] of {bool};
 
+
+/*
 chan NS_SW = [0] of {bool};
 chan NS_EW = [0] of {bool};
 
 chan NE_WN = [0] of {bool};
-chan NE_ES = [0] of {bool};
 
 chan EW_WN = [0] of {bool};
 chan SW_WN = [0] of {bool};
-
+*/
 init
 {
 	atomic{
-	   NS_WN ! true;
-	   NE_EW ! true;
-	   ES_SW ! true;
-	   NS_SW ! true;
-	   NS_EW ! true;
-	   NE_WN ! true;
-	   NE_ES ! true;
-	   SW_WN ! true;
-	   EW_WN ! true;
+		NS_WN_EW ! true;
+		NS_WN_SW ! true;
+		NE_WN_EW ! true;
+		NE_ES ! true;
+		ES_SW ! true;
    };
 }
 
@@ -134,7 +133,7 @@ active proctype NS ()
 	/* Wait for resources */
 	      	:: if
 	      		:: NS_S ->
-					NS_WN ? true; NS_SW ? true; NS_EW ? true;
+					NS_WN_EW ? true; NS_WN_SW ? true;
 		      		NS_L = Green;
 		      		NS_C = true;
 		      		if
@@ -142,7 +141,7 @@ active proctype NS ()
 		      			:: !NS_S -> skip;
 		      		fi;
 		      		NS_L = Red; 
-		      		NS_WN ! true; NS_SW ! true; NS_EW ! true;
+		      		NS_WN_EW ! true; NS_WN_SW ! true;
 		      	:: else -> skip;
 	      	fi;
    od;
@@ -155,7 +154,7 @@ active proctype WN ()
 		:: if
 			:: WN_S ->
 				/* Wait for resources */
-				NS_WN ? true; SW_WN ? true; EW_WN ? true; NE_WN ? true;
+				NS_WN_EW ? true; NS_WN_SW ? true; NE_WN_EW ? true;
 				WN_L = Green;
 				WN_C = true;
 				if
@@ -163,7 +162,7 @@ active proctype WN ()
 					:: !WN_S -> skip;
 				fi;
 				WN_L = Red;
-				NS_WN ! true; SW_WN ! true; EW_WN ! true; NE_WN ! true;
+				NS_WN_EW ! true; NS_WN_SW ! true; NE_WN_EW ! true;
 			:: else -> skip;
 		fi;
 	od;
@@ -176,7 +175,7 @@ active proctype NE ()
 	/* Wait for resources */
 	      	:: if
 	      		:: NE_S ->
-					NE_EW ? true; NE_WN ? true; NE_ES ? true;
+					NE_WN_EW  ? true; NE_ES ? true;
 		      		NE_L = Green;
 		      		NE_C = true;
 		      		if
@@ -184,7 +183,7 @@ active proctype NE ()
 		      			:: !NE_S -> skip;
 		      		fi;
 		      		NE_L = Red;
-		      		NE_EW ! true; NE_WN ! true; NE_ES ! true;
+		      		NE_WN_EW ! true; NE_ES ! true;
 		      	:: else -> skip;
 	      	fi;
    od;
@@ -197,7 +196,7 @@ active proctype EW ()
 	/* Wait for resources */
 	      	:: if
 	      		:: EW_S ->
-	      			NE_EW ? true; NS_EW ? true; EW_WN ? true;
+	      			NS_WN_EW ? true; NE_WN_EW ? true;
 		      		EW_L = Green;
 		      		EW_C = true;
 		      		if
@@ -205,7 +204,7 @@ active proctype EW ()
 		      			:: !EW_S -> skip;
 		      		fi;
 		      		EW_L = Red;
-		      		NE_EW ! true; NS_EW ! true; EW_WN ! true;
+		      		NS_WN_EW ! true; NE_WN_EW ! true;
 		      	:: else -> skip;
 	      	fi;
    od;
@@ -239,7 +238,7 @@ active proctype SW ()
 	/* Wait for resources */
 	      	:: if
 	      		:: SW_S ->
-	      			ES_SW ? true; SW_WN ? true; NS_SW ? true;
+	      			NS_WN_SW ? true; ES_SW ? true;
 		      		SW_L = Green;
 		      		SW_C = true;
 		      		if
@@ -247,7 +246,7 @@ active proctype SW ()
 		      			:: !SW_S -> skip;
 		      		fi;
 		      		SW_L = Red;
-		      		ES_SW ! true; SW_WN ! true; NS_SW ! true;
+		      		NS_WN_SW ! true; ES_SW ! true;
 		      	:: else -> skip;
 	      	fi;
    od;
