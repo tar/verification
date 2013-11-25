@@ -94,11 +94,11 @@ ltl p2_6 {[]<> !pSW_F}
 
 /* Synchronization channels */
 
-chan NS_WN_EW = [0] of {bool};
-chan NS_WN_SW = [0] of {bool};
-chan NE_WN_EW = [0] of {bool};
-chan NE_ES = [0] of {bool};
-chan ES_SW = [0] of {bool};
+chan NS_WN_EW = [1] of {bool};
+chan NS_WN_SW = [1] of {bool};
+chan NE_WN_EW = [1] of {bool};
+chan NE_ES = [1] of {bool};
+chan ES_SW = [1] of {bool};
 
 
 init
@@ -110,38 +110,47 @@ init
 		NE_ES ! true;
 		ES_SW ! true;
    };
+   	atomic{
+		run NS();
+		run WN();
+		run NE();
+		run ES();
+		run EW();
+		run SW();
+		run gen_t();
+   };
 }
 
 /* Traffic generation process */
-active proctype gen_t ()
+proctype gen_t ()
 {
-	do
-		:: true ->
-			if
+	accept: do
+		:: 
+			 if
 				:: NS_C -> NS_S = !NS_S; NS_C = false;
 				:: else -> skip;
 			fi
-	    :: true ->
+	    :: 
 	    	if
 	    		:: WN_C -> WN_S = !WN_S; WN_C = false;
 	    		:: else -> skip;
 	    	fi
-		:: true ->
+		::  
 	    	if
 		    	:: NE_C -> NE_S = !NE_S; NE_C = false;
 	    		:: else -> skip;
 	    	fi
-		:: true ->
+		:: 
 	    	if
 				:: EW_C -> EW_S = !EW_S; EW_C = false;
 	    		:: else -> skip;
 	    	fi
-		:: true ->
+		:: 
 	    	if
 				:: ES_C -> ES_S = !ES_S; ES_C = false;
 	    		:: else -> skip;
 	    	fi
-		:: true ->
+		::
 	    	if
 				:: SW_C -> SW_S = !SW_S; SW_C=false;
 	    		:: else -> skip;
@@ -150,9 +159,9 @@ active proctype gen_t ()
 }
 
 /* NS controller */
-active proctype NS ()
+proctype NS ()
 {
-	do
+	end: do
 	/* Wait for resources */
 	      	:: if
 	      		:: NS_S ->
@@ -171,9 +180,9 @@ active proctype NS ()
 }
 
 /* WN controller */
-active proctype WN ()
+proctype WN ()
 {
-	do
+	end: do
 		:: if
 			:: WN_S ->
 				/* Wait for resources */
@@ -192,9 +201,9 @@ active proctype WN ()
 }
 
 /* NE controller */
-active proctype NE ()
+proctype NE ()
 {
-	do
+	end :do
 	/* Wait for resources */
 	      	:: if
 	      		:: NE_S ->
@@ -213,9 +222,9 @@ active proctype NE ()
 }
 
 /* NE controller */
-active proctype EW ()
+proctype EW ()
 {
-	do
+	end: do
 	/* Wait for resources */
 	      	:: if
 	      		:: EW_S ->
@@ -234,9 +243,9 @@ active proctype EW ()
 }
 
 /* ES controller */
-active proctype ES ()
+proctype ES ()
 {
-	do
+	end: do
 	/* Wait for resources */
 	      	:: if
 	      		:: ES_S ->
@@ -255,9 +264,9 @@ active proctype ES ()
 }
 
 /* SW controller */
-active proctype SW ()
+proctype SW ()
 {
-	do
+	end: do
 	/* Wait for resources */
 	      	:: if
 	      		:: SW_S ->
