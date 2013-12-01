@@ -26,16 +26,6 @@ bool EW_S = false;
 bool ES_S = false;
 bool SW_S = false;
 
-/* Car crossing checkers */
-bool NS_C = true;
-bool WN_C = true;
-
-bool NE_C = true;
-bool EW_C = true;
-
-bool ES_C = true;
-bool SW_C = true;
-
 #define pNS_S (NS_L==Green && WN_L==Green && SW_L==Green && EW_L==Green) 
 #define pWN_S (WN_L==Green && NS_L==Green && NE_L==Green && SW_L==Green && EW_L==Green) 
 #define pEW_S (EW_L==Green && NE_L==Green && WN_L==Green && NS_L==Green) 
@@ -76,7 +66,7 @@ ltl p0_4 {[] !pNE_S}
 ltl p0_5 {[] !pSW_S}
 ltl p0_6 {[] !pES_S}
 /*Liveness*/
-ltl p1_1 {[] (pNS_L -> (<> qNS_L))}
+ltl p1_1 {[] (!pNS_L || (<> qNS_L))}
 ltl p1_2 {[] (pWN_L -> (<> qWN_L))}
 ltl p1_3 {[] (pEW_L -> (<> qEW_L))}
 ltl p1_4 {[] (pNE_L -> (<> qNE_L))}
@@ -124,35 +114,35 @@ init
 /* Traffic generation process */
 proctype gen_t ()
 {
-	accept: do
-		:: 
+	end: do
+		:: true->
 			 if
-				:: NS_C -> NS_S = !NS_S; NS_C = false;
+				:: (NS_L==Green || !NS_S) -> NS_S = !NS_S;
 				:: else -> skip;
 			fi
-	    :: 
+	    :: true->
 	    	if
-	    		:: WN_C -> WN_S = !WN_S; WN_C = false;
+	    		:: (WN_L==Green || !WN_S) -> WN_S = !WN_S;
 	    		:: else -> skip;
 	    	fi
-		::  
+		::  true->
 	    	if
-		    	:: NE_C -> NE_S = !NE_S; NE_C = false;
+		    	:: (NE_L==Green || !NE_S) -> NE_S = !NE_S;
 	    		:: else -> skip;
 	    	fi
-		:: 
+		:: true->
 	    	if
-				:: EW_C -> EW_S = !EW_S; EW_C = false;
+				:: (EW_L==Green || !EW_S) -> EW_S = !EW_S;
 	    		:: else -> skip;
 	    	fi
-		:: 
+		:: true->
 	    	if
-				:: ES_C -> ES_S = !ES_S; ES_C = false;
+				:: (ES_L==Green || !ES_S) -> ES_S = !ES_S;
 	    		:: else -> skip;
 	    	fi
-		::
+		:: true->
 	    	if
-				:: SW_C -> SW_S = !SW_S; SW_C=false;
+				:: (SW_L==Green || !SW_S) -> SW_S = !SW_S;
 	    		:: else -> skip;
 	    	fi
    od;
@@ -166,8 +156,8 @@ proctype NS ()
 	      	:: if
 	      		:: NS_S ->
 					NS_WN_EW ? true; NS_WN_SW ? true;
+					printf("NS is going!");
 		      		NS_L = Green;
-		      		NS_C = true;
 		      		if
 		      			/* Wait for end of car queue */
 		      			:: !NS_S -> skip;
@@ -188,7 +178,6 @@ proctype WN ()
 				/* Wait for resources */
 				NS_WN_EW ? true; NS_WN_SW ? true; NE_WN_EW ? true;
 				WN_L = Green;
-				WN_C = true;
 				if
 				/* Wait for end of car queue */
 					:: !WN_S -> skip;
@@ -209,7 +198,6 @@ proctype NE ()
 	      		:: NE_S ->
 					NE_WN_EW  ? true; NE_ES ? true;
 		      		NE_L = Green;
-		      		NE_C = true;
 		      		if
 		      			/* Wait for end of car queue */
 		      			:: !NE_S -> skip;
@@ -230,7 +218,6 @@ proctype EW ()
 	      		:: EW_S ->
 	      			NS_WN_EW ? true; NE_WN_EW ? true;
 		      		EW_L = Green;
-		      		EW_C = true;
 		      		if
 		      			/* Wait for end of car queue */
 		      			:: !EW_S -> skip;
@@ -251,7 +238,6 @@ proctype ES ()
 	      		:: ES_S ->
 	      			ES_SW ? true; NE_ES ? true;
 		      		ES_L = Green;
-		      		ES_C = true;
 		      		if
 		      			/* Wait for end of car queue */
 		      			:: !ES_S -> skip;
@@ -272,7 +258,6 @@ proctype SW ()
 	      		:: SW_S ->
 	      			NS_WN_SW ? true; ES_SW ? true;
 		      		SW_L = Green;
-		      		SW_C = true;
 		      		if
 		      			/* Wait for end of car queue */
 		      			:: !SW_S -> skip;
