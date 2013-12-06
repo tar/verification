@@ -74,8 +74,8 @@ ltl p1_5 {[] (pSW_L -> (<> qSW_L))}
 ltl p1_6 {[] (pES_L -> (<> qES_L))}
 
 /*Fairness*/
-ltl p2_1 {[]<> !pNS_F}
-ltl p2_2 {[]<> !pWN_F}
+ltl p2_1 {([]<> !pNS_F) || ([] (!pNS_L || (<> qNS_L)))}
+ltl p2_2 {([]<> !pWN_F) || ([] (pWN_L -> (<> qWN_L)))}
 ltl p2_3 {[]<> !pEW_F}
 ltl p2_4 {[]<> !pNE_F}
 ltl p2_5 {[]<> !pES_F}
@@ -107,67 +107,43 @@ init
         run ES();
         run EW();
         run SW();
-        run gen_1();
-        run gen_2();
-        run gen_3();
-        run gen_4();
-        run gen_5();
-        run gen_6();
+        run gen_t();
    };
 }
 
 /* Traffic generation process */
-proctype gen_1 ()
+proctype gen_t ()
 {
     end: do
         :: true->
              if
                 :: (NS_L==Green || !NS_S) -> NS_S = !NS_S;
+                :: else -> skip;
             fi
-   od;
-}
-proctype gen_2 ()
-{
-    end: do
         :: true->
             if
                 :: (WN_L==Green || !WN_S) -> WN_S = !WN_S;
+                :: else -> skip;
             fi
-   od;
-}
-proctype gen_3 ()
-{
-    end: do
         ::  true->
             if
                 :: (NE_L==Green || !NE_S) -> NE_S = !NE_S;
+                :: else -> skip;
             fi
-   od;
-}
-proctype gen_4 ()
-{
-    end: do
         :: true->
             if
                 :: (EW_L==Green || !EW_S) -> EW_S = !EW_S;
+                :: else -> skip;
             fi
-   od;
-}
-proctype gen_5 ()
-{
-    end: do
         :: true->
             if
                 :: (ES_L==Green || !ES_S) -> ES_S = !ES_S;
+                :: else -> skip;
             fi
-   od;
-}
-proctype gen_6 ()
-{
-    end: do
         :: true->
             if
                 :: (SW_L==Green || !SW_S) -> SW_S = !SW_S;
+                :: else -> skip;
             fi
    od;
 }
