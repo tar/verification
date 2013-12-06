@@ -114,7 +114,7 @@ init
 /* Traffic generation process */
 proctype gen_t ()
 {
-    end: do
+    accpet: do
         :: true->
              if
                 :: (NS_L==Green || !NS_S) -> NS_S = !NS_S;
@@ -152,10 +152,8 @@ proctype NS ()
 {
     end: do
     /* Wait for resources */
-            :: if
                 :: NS_S ->
                     NS_WN_EW ? true; NS_WN_SW ? true;
-                    printf("NS is going!");
                     NS_L = Green;
                     if
                         /* Wait for end of car queue */
@@ -163,8 +161,7 @@ proctype NS ()
                     fi;
                     NS_L = Red; 
                     NS_WN_EW ! true; NS_WN_SW ! true;
-                :: else -> skip;
-            fi;
+
    od;
 }
 
@@ -193,7 +190,6 @@ proctype NE ()
 {
     end :do
     /* Wait for resources */
-            :: if
                 :: NE_S ->
                     NE_WN_EW  ? true; NE_ES ? true;
                     NE_L = Green;
@@ -203,8 +199,6 @@ proctype NE ()
                     fi;
                     NE_L = Red;
                     NE_WN_EW ! true; NE_ES ! true;
-                :: else -> skip;
-            fi;
    od;
 }
 
@@ -213,7 +207,6 @@ proctype EW ()
 {
     end: do
     /* Wait for resources */
-            :: if
                 :: EW_S ->
                     NS_WN_EW ? true; NE_WN_EW ? true;
                     EW_L = Green;
@@ -223,8 +216,6 @@ proctype EW ()
                     fi;
                     EW_L = Red;
                     NS_WN_EW ! true; NE_WN_EW ! true;
-                :: else -> skip;
-            fi;
    od;
 }
 
@@ -233,7 +224,6 @@ proctype ES ()
 {
     end: do
     /* Wait for resources */
-            :: if
                 :: ES_S ->
                     ES_SW ? true; NE_ES ? true;
                     ES_L = Green;
@@ -243,8 +233,7 @@ proctype ES ()
                     fi;
                     ES_L = Red;
                     ES_SW ! true; NE_ES ! true;
-                :: else -> skip;
-            fi;
+
    od;
 }
 
@@ -253,7 +242,6 @@ proctype SW ()
 {
     end: do
     /* Wait for resources */
-            :: if
                 :: SW_S ->
                     NS_WN_SW ? true; ES_SW ? true;
                     SW_L = Green;
@@ -263,7 +251,5 @@ proctype SW ()
                     fi;
                     SW_L = Red;
                     NS_WN_SW ! true; ES_SW ! true;
-                :: else -> skip;
-            fi;
    od;
 }
