@@ -74,12 +74,12 @@ ltl p1_5 {[] (pSW_L -> (<> qSW_L))}
 ltl p1_6 {[] (pES_L -> (<> qES_L))}
 
 /*Fairness*/
-ltl p2_1 {([]<> !pNS_F) || ([] (!pNS_L || (<> qNS_L)))}
-ltl p2_2 {([]<> !pWN_F) || ([] (pWN_L -> (<> qWN_L)))}
-ltl p2_3 {[]<> !pEW_F}
-ltl p2_4 {[]<> !pNE_F}
-ltl p2_5 {[]<> !pES_F}
-ltl p2_6 {[]<> !pSW_F}
+ltl p2_1 {[] <> !pNS_F -> ([] <> (!pNS_F) && (pNS_L -> (<> qNS_L)))}
+ltl p2_2 {[] <> !pWN_F -> ([] <> (!pWN_F) && (pWN_L -> (<> qWN_L)))}
+ltl p2_3 {[] <> !pEW_F -> ([] <> (!pEW_F) && (pEW_L -> (<> qEW_L)))}
+ltl p2_4 {[] <> !pNE_F -> ([] <> (!pNE_F) && (pNE_L -> (<> qNE_L)))}
+ltl p2_5 {[] <> !pES_F -> ([] <> (!pES_F) && (pES_L -> (<> qES_L)))}
+ltl p2_6 {[] <> !pSW_F -> ([] <> (!pSW_F) && (pSW_L -> (<> qSW_L)))}
 
 
 /* Synchronization channels */
@@ -150,106 +150,107 @@ proctype gen_t ()
 /* NS controller */
 proctype NS ()
 {
-    end: do
-    /* Wait for resources */
-                :: NS_S ->
-                    NS_WN_EW ? true; NS_WN_SW ? true;
-                    NS_L = Green;
-                    if
-                        /* Wait for end of car queue */
-                        :: !NS_S -> skip;
-                    fi;
-                    NS_L = Red; 
-                    NS_WN_EW ! true; NS_WN_SW ! true;
-
-   od;
+    end: 
+    	do
+    		:: NS_S ->
+    			/* Wait for resources */
+                NS_WN_EW ? true; NS_WN_SW ? true;
+                NS_L = Green;
+                if
+                	/* Wait for end of car queue */
+                    :: !NS_S -> skip;
+                fi;
+                NS_L = Red; 
+                NS_WN_EW ! true; NS_WN_SW ! true;
+		od;
 }
 
 /* WN controller */
 proctype WN ()
 {
-    end: do
-        :: if
+    end: 
+    	do
             :: WN_S ->
                 /* Wait for resources */
                 NS_WN_EW ? true; NS_WN_SW ? true; NE_WN_EW ? true;
                 WN_L = Green;
                 if
-                /* Wait for end of car queue */
+                	/* Wait for end of car queue */
                     :: !WN_S -> skip;
                 fi;
                 WN_L = Red;
                 NS_WN_EW ! true; NS_WN_SW ! true; NE_WN_EW ! true;
-            :: else -> skip;
-        fi;
-    od;
+    	od;
 }
 
 /* NE controller */
 proctype NE ()
 {
-    end :do
-    /* Wait for resources */
-                :: NE_S ->
-                    NE_WN_EW  ? true; NE_ES ? true;
-                    NE_L = Green;
-                    if
-                        /* Wait for end of car queue */
-                        :: !NE_S -> skip;
-                    fi;
-                    NE_L = Red;
-                    NE_WN_EW ! true; NE_ES ! true;
-   od;
+    end:
+    	do
+        	:: NE_S ->
+    			/* Wait for resources */
+                NE_WN_EW  ? true; NE_ES ? true;
+                NE_L = Green;
+                if
+                    /* Wait for end of car queue */
+                    :: !NE_S -> skip;
+                fi;
+                NE_L = Red;
+                NE_WN_EW ! true; NE_ES ! true; 
+   		od;
 }
 
 /* NE controller */
 proctype EW ()
 {
-    end: do
-    /* Wait for resources */
-                :: EW_S ->
-                    NS_WN_EW ? true; NE_WN_EW ? true;
-                    EW_L = Green;
-                    if
-                        /* Wait for end of car queue */
-                        :: !EW_S -> skip;
-                    fi;
-                    EW_L = Red;
-                    NS_WN_EW ! true; NE_WN_EW ! true;
-   od;
+    end: 
+    	do
+    		:: EW_S ->
+				/* Wait for resources */
+                NS_WN_EW ? true; NE_WN_EW ? true;
+                EW_L = Green;
+                if
+                    /* Wait for end of car queue */
+                    :: !EW_S -> skip;
+                fi;
+                EW_L = Red;
+                NS_WN_EW ! true; NE_WN_EW ! true;
+   		od;
 }
 
 /* ES controller */
 proctype ES ()
 {
-    end: do
-    /* Wait for resources */
-                :: ES_S ->
-                    ES_SW ? true; NE_ES ? true;
-                    ES_L = Green;
-                    if
-                        /* Wait for end of car queue */
-                        :: !ES_S -> skip;
-                    fi;
-                    ES_L = Red;
-                    ES_SW ! true; NE_ES ! true;
-
-   od;
+    end: 
+    	do
+            :: ES_S ->
+				/* Wait for resources */
+                ES_SW ? true; NE_ES ? true;
+                ES_L = Green;
+                if
+                    /* Wait for end of car queue */
+                    :: !ES_S -> skip;
+                fi;
+                ES_L = Red;
+                ES_SW ! true; NE_ES ! true;
+   		od;
 }
 
 /* SW controller */
 proctype SW ()
 {
-    end: do
-    /* Wait for resources */
-                :: SW_S ->
-                    NS_WN_SW ? true; ES_SW ? true;
-                    SW_L = Green;
-                    if
-                        /* Wait for end of car queue */
-                        :: !SW_S -> skip;
-                    fi;
-                    SW_L = Red;
-                    NS_WN_SW ! true; ES_SW ! true;
-   od;
+    end: 
+    	do
+        	:: SW_S ->
+    			/* Wait for resources */
+                NS_WN_SW ? true; ES_SW ? true;
+                SW_L = Green;
+                if
+                    /* Wait for end of car queue */
+                    :: !SW_S -> skip;
+                fi;
+                SW_L = Red;
+                NS_WN_SW ! true; ES_SW ! true;
+   		od;
 }
