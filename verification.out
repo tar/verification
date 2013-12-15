@@ -1,0 +1,805 @@
+verification result:
+spin -a  var1.pml
+ltl pS_NS: [] (! (((((NS@green)) && ((WN@green))) && ((SW@green))) && ((EW@green))))
+ltl pS_WN: [] (! ((((((WN@green)) && ((NS@green))) && ((NE@green))) && ((SW@green))) && ((EW@green))))
+ltl pS_EW: [] (! (((((EW@green)) && ((NE@green))) && ((WN@green))) && ((NS@green))))
+ltl pS_NE: [] (! (((((NE@green)) && ((WN@green))) && ((ES@green))) && ((EW@green))))
+ltl pS_ES: [] (! (((((SW@green)) && ((ES@green))) && ((WN@green))) && ((NS@green))))
+ltl pS_SW: [] (! (((((SW@green)) && ((ES@green))) && ((WN@green))) && ((NS@green))))
+ltl pF_NS: [] (<> ((! ([] (<> (! (((NS@green)) && ((gen_t@NSTrue))))))) || ([] ((! (((gen_t@NSTrue)) && ((NS@red)))) || (<> ((NS@green)))))))
+ltl pF_WN: [] (<> ((! ([] (<> (! (((WN@green)) && ((gen_t@WNTrue))))))) || ([] ((! (((gen_t@WNTrue)) && ((WN@red)))) || (<> ((WN@green)))))))
+ltl pF_EW: [] (<> ((! ([] (<> (! (((EW@green)) && ((gen_t@EWTrue))))))) || ([] ((! (((gen_t@EWTrue)) && ((EW@red)))) || (<> ((EW@green)))))))
+ltl pF_NE: [] (<> ((! ([] (<> (! (((NE@green)) && ((gen_t@NETrue))))))) || ([] ((! (((gen_t@NETrue)) && ((NE@red)))) || (<> ((NE@green)))))))
+ltl pF_ES: [] (<> ((! ([] (<> (! (((ES@green)) && ((gen_t@ESTrue))))))) || ([] ((! (((gen_t@ESTrue)) && ((ES@red)))) || (<> ((ES@green)))))))
+ltl pF_SW: [] (<> ((! ([] (<> (! (((SW@green)) && ((gen_t@SWTrue))))))) || ([] ((! (((gen_t@SWTrue)) && ((SW@red)))) || (<> ((SW@green)))))))
+  the model contains 12 never claims: pF_SW, pF_ES, pF_NE, pF_EW, pF_WN, pF_NS, pS_SW, pS_ES, pS_NE, pS_EW, pS_WN, pS_NS
+  only one claim is used in a verification run
+  choose which one with ./pan -a -N name (defaults to -N pS_NS)
+gcc -DMEMLIM=3500 -O2 -DXUSAFE -w -o pan pan.c
+./pan -m2000000  -a -N pS_NS
+Pid: 2717
+Depth=  995385 States=    1e+06 Transitions= 3.24e+06 Memory=   318.894	t=     1.47 R=   7e+05
+Depth= 1730295 States=    2e+06 Transitions= 7.01e+06 Memory=   402.878	t=      3.2 R=   6e+05
+error: max search depth too small
+Depth= 1999999 States=    3e+06 Transitions= 1.16e+07 Memory=   486.862	t=     4.89 R=   6e+05
+stopped
+Interrupted
+
+(Spin Version 6.2.5 -- 3 May 2013)
+Warning: Search not completed
+	+ Partial Order Reduction
+
+Full statespace search for:
+	never claim         	+ (pS_NS)
+	assertion violations	+ (if within scope of claim)
+	acceptance   cycles 	+ (fairness disabled)
+	invalid end states	- (disabled by never claim)
+
+State-vector 140 byte, depth reached 1999999, errors: 0
+  3763592 states, stored
+ 11592337 states, matched
+ 15355929 transitions (= stored+matched)
+       10 atomic steps
+hash conflicts:    556141 (resolved)
+
+Stats on memory usage (in Megabytes):
+  602.992	equivalent memory usage for states (stored*(State-vector + overhead))
+  316.416	actual memory usage for states (compression: 52.47%)
+         	state-vector as stored = 60 byte + 28 byte overhead
+  128.000	memory used for hash table (-w24)
+  106.812	memory used for DFS stack (-m2000000)
+  551.023	total actual memory usage
+
+
+
+pan: elapsed time 6.16 seconds
+pan: rate 610972.73 states/second
+To replay the error-trail, goto Simulate/Replay and select "Run"
+spin -a  var1.pml
+ltl pS_NS: [] (! (((((NS@green)) && ((WN@green))) && ((SW@green))) && ((EW@green))))
+ltl pS_WN: [] (! ((((((WN@green)) && ((NS@green))) && ((NE@green))) && ((SW@green))) && ((EW@green))))
+ltl pS_EW: [] (! (((((EW@green)) && ((NE@green))) && ((WN@green))) && ((NS@green))))
+ltl pS_NE: [] (! (((((NE@green)) && ((WN@green))) && ((ES@green))) && ((EW@green))))
+ltl pS_ES: [] (! (((((SW@green)) && ((ES@green))) && ((WN@green))) && ((NS@green))))
+ltl pS_SW: [] (! (((((SW@green)) && ((ES@green))) && ((WN@green))) && ((NS@green))))
+ltl pF_NS: [] (<> ((! ([] (<> (! (((NS@green)) && ((gen_t@NSTrue))))))) || ([] ((! (((gen_t@NSTrue)) && ((NS@red)))) || (<> ((NS@green)))))))
+ltl pF_WN: [] (<> ((! ([] (<> (! (((WN@green)) && ((gen_t@WNTrue))))))) || ([] ((! (((gen_t@WNTrue)) && ((WN@red)))) || (<> ((WN@green)))))))
+ltl pF_EW: [] (<> ((! ([] (<> (! (((EW@green)) && ((gen_t@EWTrue))))))) || ([] ((! (((gen_t@EWTrue)) && ((EW@red)))) || (<> ((EW@green)))))))
+ltl pF_NE: [] (<> ((! ([] (<> (! (((NE@green)) && ((gen_t@NETrue))))))) || ([] ((! (((gen_t@NETrue)) && ((NE@red)))) || (<> ((NE@green)))))))
+ltl pF_ES: [] (<> ((! ([] (<> (! (((ES@green)) && ((gen_t@ESTrue))))))) || ([] ((! (((gen_t@ESTrue)) && ((ES@red)))) || (<> ((ES@green)))))))
+ltl pF_SW: [] (<> ((! ([] (<> (! (((SW@green)) && ((gen_t@SWTrue))))))) || ([] ((! (((gen_t@SWTrue)) && ((SW@red)))) || (<> ((SW@green)))))))
+  the model contains 12 never claims: pF_SW, pF_ES, pF_NE, pF_EW, pF_WN, pF_NS, pS_SW, pS_ES, pS_NE, pS_EW, pS_WN, pS_NS
+  only one claim is used in a verification run
+  choose which one with ./pan -a -N name (defaults to -N pS_NS)
+gcc -DMEMLIM=3500 -O2 -DXUSAFE -w -o pan pan.c
+./pan -m6000000  -a -N pS_NS
+Pid: 2735
+Depth=  995385 States=    1e+06 Transitions= 3.24e+06 Memory=   532.517	t=     1.46 R=   7e+05
+Depth= 1730295 States=    2e+06 Transitions= 7.01e+06 Memory=   616.501	t=     3.19 R=   6e+05
+Depth= 2341633 States=    3e+06 Transitions=  1.1e+07 Memory=   700.486	t=     5.05 R=   6e+05
+Depth= 2866353 States=    4e+06 Transitions= 1.51e+07 Memory=   784.470	t=        7 R=   6e+05
+Depth= 3358323 States=    5e+06 Transitions= 1.92e+07 Memory=   868.454	t=     8.98 R=   6e+05
+Depth= 3764835 States=    6e+06 Transitions= 2.35e+07 Memory=   952.439	t=       11 R=   5e+05
+Depth= 4189055 States=    7e+06 Transitions= 2.76e+07 Memory=  1036.325	t=     13.1 R=   5e+05
+Depth= 4601391 States=    8e+06 Transitions= 3.17e+07 Memory=  1120.310	t=     15.1 R=   5e+05
+Depth= 5035915 States=    9e+06 Transitions= 3.58e+07 Memory=  1204.294	t=     17.2 R=   5e+05
+Depth= 5453387 States=    1e+07 Transitions= 3.99e+07 Memory=  1288.278	t=     19.5 R=   5e+05
+Depth= 5832915 States=  1.1e+07 Transitions=  4.4e+07 Memory=  1372.263	t=     21.6 R=   5e+05
+error: max search depth too small
+Depth= 5999999 States=  1.2e+07 Transitions= 4.83e+07 Memory=  1456.247	t=     23.7 R=   5e+05
+Depth= 5999999 States=  1.3e+07 Transitions=  5.3e+07 Memory=  1540.134	t=     25.6 R=   5e+05
+stopped
+Interrupted
+
+(Spin Version 6.2.5 -- 3 May 2013)
+Warning: Search not completed
+	+ Partial Order Reduction
+
+Full statespace search for:
+	never claim         	+ (pS_NS)
+	assertion violations	+ (if within scope of claim)
+	acceptance   cycles 	+ (fairness disabled)
+	invalid end states	- (disabled by never claim)
+
+State-vector 140 byte, depth reached 5999999, errors: 0
+ 13133410 states, stored
+ 40434810 states, matched
+ 53568220 transitions (= stored+matched)
+       10 atomic steps
+hash conflicts:   9295570 (resolved)
+
+Stats on memory usage (in Megabytes):
+ 2104.199	equivalent memory usage for states (stored*(State-vector + overhead))
+ 1103.565	actual memory usage for states (compression: 52.45%)
+         	state-vector as stored = 60 byte + 28 byte overhead
+  128.000	memory used for hash table (-w24)
+  320.435	memory used for DFS stack (-m6000000)
+ 1551.364	total actual memory usage
+
+
+
+pan: elapsed time 25.9 seconds
+pan: rate 507473.34 states/second
+To replay the error-trail, goto Simulate/Replay and select "Run"
+spin -a  var1.pml
+ltl pS_NS: [] (! (((((NS@green)) && ((WN@green))) && ((SW@green))) && ((EW@green))))
+ltl pS_WN: [] (! ((((((WN@green)) && ((NS@green))) && ((NE@green))) && ((SW@green))) && ((EW@green))))
+ltl pS_EW: [] (! (((((EW@green)) && ((NE@green))) && ((WN@green))) && ((NS@green))))
+ltl pS_NE: [] (! (((((NE@green)) && ((WN@green))) && ((ES@green))) && ((EW@green))))
+ltl pS_ES: [] (! (((((SW@green)) && ((ES@green))) && ((WN@green))) && ((NS@green))))
+ltl pS_SW: [] (! (((((SW@green)) && ((ES@green))) && ((WN@green))) && ((NS@green))))
+ltl pF_NS: [] (<> ((! ([] (<> (! (((NS@green)) && ((gen_t@NSTrue))))))) || ([] ((! (((gen_t@NSTrue)) && ((NS@red)))) || (<> ((NS@green)))))))
+ltl pF_WN: [] (<> ((! ([] (<> (! (((WN@green)) && ((gen_t@WNTrue))))))) || ([] ((! (((gen_t@WNTrue)) && ((WN@red)))) || (<> ((WN@green)))))))
+ltl pF_EW: [] (<> ((! ([] (<> (! (((EW@green)) && ((gen_t@EWTrue))))))) || ([] ((! (((gen_t@EWTrue)) && ((EW@red)))) || (<> ((EW@green)))))))
+ltl pF_NE: [] (<> ((! ([] (<> (! (((NE@green)) && ((gen_t@NETrue))))))) || ([] ((! (((gen_t@NETrue)) && ((NE@red)))) || (<> ((NE@green)))))))
+ltl pF_ES: [] (<> ((! ([] (<> (! (((ES@green)) && ((gen_t@ESTrue))))))) || ([] ((! (((gen_t@ESTrue)) && ((ES@red)))) || (<> ((ES@green)))))))
+ltl pF_SW: [] (<> ((! ([] (<> (! (((SW@green)) && ((gen_t@SWTrue))))))) || ([] ((! (((gen_t@SWTrue)) && ((SW@red)))) || (<> ((SW@green)))))))
+  the model contains 12 never claims: pF_SW, pF_ES, pF_NE, pF_EW, pF_WN, pF_NS, pS_SW, pS_ES, pS_NE, pS_EW, pS_WN, pS_NS
+  only one claim is used in a verification run
+  choose which one with ./pan -a -N name (defaults to -N pS_NS)
+gcc -DMEMLIM=3500 -O2 -DXUSAFE -w -o pan pan.c
+./pan -m60000000  -a -N pS_NS
+Pid: 2757
+Depth=  995385 States=    1e+06 Transitions= 3.24e+06 Memory=  3416.428	t=     1.79 R=   6e+05
+pan: reached -DMEMLIM bound
+	3.66994e+09 bytes used
+	102400 bytes more needed
+	3.67002e+09 bytes limit
+hint: to reduce memory, recompile with
+  -DCOLLAPSE # good, fast compression, or
+  -DMA=140   # better/slower compression, or
+  -DHC # hash-compaction, approximation
+  -DBITSTATE # supertrace, approximation
+
+(Spin Version 6.2.5 -- 3 May 2013)
+Warning: Search not completed
+	+ Partial Order Reduction
+
+Full statespace search for:
+	never claim         	+ (pS_NS)
+	assertion violations	+ (if within scope of claim)
+	acceptance   cycles 	+ (fairness disabled)
+	invalid end states	- (disabled by never claim)
+
+State-vector 140 byte, depth reached 1726825, errors: 0
+  1994544 states, stored
+  4996315 states, matched
+  6990859 transitions (= stored+matched)
+       10 atomic steps
+hash conflicts:    160854 (resolved)
+
+Stats on memory usage (in Megabytes):
+  319.560	equivalent memory usage for states (stored*(State-vector + overhead))
+  167.702	actual memory usage for states (compression: 52.48%)
+         	state-vector as stored = 60 byte + 28 byte overhead
+  128.000	memory used for hash table (-w24)
+ 3204.346	memory used for DFS stack (-m60000000)
+ 3499.924	total actual memory usage
+
+
+
+pan: elapsed time 4.92 seconds
+No errors found -- did you verify all claims?
+spin -a  var1.pml
+ltl pS_NS: [] (! (((((NS@green)) && ((WN@green))) && ((SW@green))) && ((EW@green))))
+ltl pS_WN: [] (! ((((((WN@green)) && ((NS@green))) && ((NE@green))) && ((SW@green))) && ((EW@green))))
+ltl pS_EW: [] (! (((((EW@green)) && ((NE@green))) && ((WN@green))) && ((NS@green))))
+ltl pS_NE: [] (! (((((NE@green)) && ((WN@green))) && ((ES@green))) && ((EW@green))))
+ltl pS_ES: [] (! (((((SW@green)) && ((ES@green))) && ((WN@green))) && ((NS@green))))
+ltl pS_SW: [] (! (((((SW@green)) && ((ES@green))) && ((WN@green))) && ((NS@green))))
+ltl pF_NS: [] (<> ((! ([] (<> (! (((NS@green)) && ((gen_t@NSTrue))))))) || ([] ((! (((gen_t@NSTrue)) && ((NS@red)))) || (<> ((NS@green)))))))
+ltl pF_WN: [] (<> ((! ([] (<> (! (((WN@green)) && ((gen_t@WNTrue))))))) || ([] ((! (((gen_t@WNTrue)) && ((WN@red)))) || (<> ((WN@green)))))))
+ltl pF_EW: [] (<> ((! ([] (<> (! (((EW@green)) && ((gen_t@EWTrue))))))) || ([] ((! (((gen_t@EWTrue)) && ((EW@red)))) || (<> ((EW@green)))))))
+ltl pF_NE: [] (<> ((! ([] (<> (! (((NE@green)) && ((gen_t@NETrue))))))) || ([] ((! (((gen_t@NETrue)) && ((NE@red)))) || (<> ((NE@green)))))))
+ltl pF_ES: [] (<> ((! ([] (<> (! (((ES@green)) && ((gen_t@ESTrue))))))) || ([] ((! (((gen_t@ESTrue)) && ((ES@red)))) || (<> ((ES@green)))))))
+ltl pF_SW: [] (<> ((! ([] (<> (! (((SW@green)) && ((gen_t@SWTrue))))))) || ([] ((! (((gen_t@SWTrue)) && ((SW@red)))) || (<> ((SW@green)))))))
+  the model contains 12 never claims: pF_SW, pF_ES, pF_NE, pF_EW, pF_WN, pF_NS, pS_SW, pS_ES, pS_NE, pS_EW, pS_WN, pS_NS
+  only one claim is used in a verification run
+  choose which one with ./pan -a -N name (defaults to -N pS_NS)
+gcc -DMEMLIM=3500 -O2 -DXUSAFE -w -o pan pan.c
+./pan -m10000000  -a -N pS_NS
+Pid: 2781
+Depth=  995385 States=    1e+06 Transitions= 3.24e+06 Memory=   746.140	t=      1.5 R=   7e+05
+Depth= 1730295 States=    2e+06 Transitions= 7.01e+06 Memory=   830.124	t=     3.28 R=   6e+05
+Depth= 2341633 States=    3e+06 Transitions=  1.1e+07 Memory=   914.109	t=     5.16 R=   6e+05
+Depth= 2866353 States=    4e+06 Transitions= 1.51e+07 Memory=   998.093	t=     7.15 R=   6e+05
+Depth= 3358323 States=    5e+06 Transitions= 1.92e+07 Memory=  1082.077	t=     9.23 R=   5e+05
+Depth= 3764835 States=    6e+06 Transitions= 2.35e+07 Memory=  1166.062	t=     11.4 R=   5e+05
+Depth= 4189055 States=    7e+06 Transitions= 2.76e+07 Memory=  1249.948	t=     13.6 R=   5e+05
+Depth= 4601391 States=    8e+06 Transitions= 3.17e+07 Memory=  1333.933	t=     15.7 R=   5e+05
+Depth= 5035915 States=    9e+06 Transitions= 3.58e+07 Memory=  1417.917	t=     17.8 R=   5e+05
+Depth= 5453387 States=    1e+07 Transitions= 3.99e+07 Memory=  1501.902	t=       20 R=   5e+05
+Depth= 5832915 States=  1.1e+07 Transitions=  4.4e+07 Memory=  1585.886	t=     22.2 R=   5e+05
+Depth= 6176373 States=  1.2e+07 Transitions= 4.81e+07 Memory=  1669.870	t=     24.5 R=   5e+05
+Depth= 6478919 States=  1.3e+07 Transitions= 5.23e+07 Memory=  1753.757	t=     26.8 R=   5e+05
+Depth= 6798191 States=  1.4e+07 Transitions= 5.65e+07 Memory=  1837.741	t=     29.2 R=   5e+05
+Depth= 7035783 States=  1.5e+07 Transitions= 6.07e+07 Memory=  1921.726	t=     31.5 R=   5e+05
+Depth= 7172089 States=  1.6e+07 Transitions=  6.5e+07 Memory=  2005.710	t=       34 R=   5e+05
+
+(Spin Version 6.2.5 -- 3 May 2013)
+	+ Partial Order Reduction
+
+Full statespace search for:
+	never claim         	+ (pS_NS)
+	assertion violations	+ (if within scope of claim)
+	acceptance   cycles 	+ (fairness disabled)
+	invalid end states	- (disabled by never claim)
+
+State-vector 140 byte, depth reached 7172089, errors: 0
+ 16586205 states, stored
+ 61528313 states, matched
+ 78114518 transitions (= stored+matched)
+       10 atomic steps
+hash conflicts:  21088344 (resolved)
+
+Stats on memory usage (in Megabytes):
+ 2657.397	equivalent memory usage for states (stored*(State-vector + overhead))
+ 1393.665	actual memory usage for states (compression: 52.44%)
+         	state-vector as stored = 60 byte + 28 byte overhead
+  128.000	memory used for hash table (-w24)
+  534.058	memory used for DFS stack (-m10000000)
+ 2054.929	total actual memory usage
+
+
+unreached in init
+	(0 of 15 states)
+unreached in proctype gen_t
+	var1.pml:112, state 58, "-end-"
+	(1 of 58 states)
+unreached in proctype NS
+	var1.pml:131, state 15, "-end-"
+	(1 of 15 states)
+unreached in proctype WN
+	var1.pml:151, state 17, "-end-"
+	(1 of 17 states)
+unreached in proctype NE
+	var1.pml:171, state 15, "-end-"
+	(1 of 15 states)
+unreached in proctype EW
+	var1.pml:191, state 15, "-end-"
+	(1 of 15 states)
+unreached in proctype ES
+	var1.pml:211, state 15, "-end-"
+	(1 of 15 states)
+unreached in proctype SW
+	var1.pml:231, state 15, "-end-"
+	(1 of 15 states)
+unreached in claim pS_NS
+	_spin_nvr.tmp:8, state 10, "-end-"
+	(1 of 10 states)
+
+pan: elapsed time 41.8 seconds
+No errors found -- did you verify all claims?
+spin -a  var1.pml
+ltl pS_NS: [] (! (((((NS@green)) && ((WN@green))) && ((SW@green))) && ((EW@green))))
+ltl pS_WN: [] (! ((((((WN@green)) && ((NS@green))) && ((NE@green))) && ((SW@green))) && ((EW@green))))
+ltl pS_EW: [] (! (((((EW@green)) && ((NE@green))) && ((WN@green))) && ((NS@green))))
+ltl pS_NE: [] (! (((((NE@green)) && ((WN@green))) && ((ES@green))) && ((EW@green))))
+ltl pS_ES: [] (! (((((SW@green)) && ((ES@green))) && ((WN@green))) && ((NS@green))))
+ltl pS_SW: [] (! (((((SW@green)) && ((ES@green))) && ((WN@green))) && ((NS@green))))
+ltl pF_NS: [] (<> ((! ([] (<> (! (((NS@green)) && ((gen_t@NSTrue))))))) || ([] ((! (((gen_t@NSTrue)) && ((NS@red)))) || (<> ((NS@green)))))))
+ltl pF_WN: [] (<> ((! ([] (<> (! (((WN@green)) && ((gen_t@WNTrue))))))) || ([] ((! (((gen_t@WNTrue)) && ((WN@red)))) || (<> ((WN@green)))))))
+ltl pF_EW: [] (<> ((! ([] (<> (! (((EW@green)) && ((gen_t@EWTrue))))))) || ([] ((! (((gen_t@EWTrue)) && ((EW@red)))) || (<> ((EW@green)))))))
+ltl pF_NE: [] (<> ((! ([] (<> (! (((NE@green)) && ((gen_t@NETrue))))))) || ([] ((! (((gen_t@NETrue)) && ((NE@red)))) || (<> ((NE@green)))))))
+ltl pF_ES: [] (<> ((! ([] (<> (! (((ES@green)) && ((gen_t@ESTrue))))))) || ([] ((! (((gen_t@ESTrue)) && ((ES@red)))) || (<> ((ES@green)))))))
+ltl pF_SW: [] (<> ((! ([] (<> (! (((SW@green)) && ((gen_t@SWTrue))))))) || ([] ((! (((gen_t@SWTrue)) && ((SW@red)))) || (<> ((SW@green)))))))
+  the model contains 12 never claims: pF_SW, pF_ES, pF_NE, pF_EW, pF_WN, pF_NS, pS_SW, pS_ES, pS_NE, pS_EW, pS_WN, pS_NS
+  only one claim is used in a verification run
+  choose which one with ./pan -a -N name (defaults to -N pS_NS)
+gcc -DMEMLIM=3500 -O2 -DXUSAFE -w -o pan pan.c
+./pan -m10000000  -a -N pS_WN
+Pid: 2807
+Depth=  995385 States=    1e+06 Transitions= 3.24e+06 Memory=   746.140	t=     1.45 R=   7e+05
+Depth= 1730295 States=    2e+06 Transitions= 7.01e+06 Memory=   830.124	t=     3.19 R=   6e+05
+Depth= 2341633 States=    3e+06 Transitions=  1.1e+07 Memory=   914.109	t=     5.03 R=   6e+05
+Depth= 2866353 States=    4e+06 Transitions= 1.51e+07 Memory=   998.093	t=     6.99 R=   6e+05
+Depth= 3358323 States=    5e+06 Transitions= 1.92e+07 Memory=  1082.077	t=     8.98 R=   6e+05
+Depth= 3764835 States=    6e+06 Transitions= 2.35e+07 Memory=  1166.062	t=       11 R=   5e+05
+Depth= 4189055 States=    7e+06 Transitions= 2.76e+07 Memory=  1249.948	t=     13.1 R=   5e+05
+Depth= 4601391 States=    8e+06 Transitions= 3.17e+07 Memory=  1333.933	t=     15.2 R=   5e+05
+Depth= 5035915 States=    9e+06 Transitions= 3.58e+07 Memory=  1417.917	t=     17.2 R=   5e+05
+Depth= 5453387 States=    1e+07 Transitions= 3.99e+07 Memory=  1501.902	t=     19.3 R=   5e+05
+Depth= 5832915 States=  1.1e+07 Transitions=  4.4e+07 Memory=  1585.886	t=     21.5 R=   5e+05
+Depth= 6176373 States=  1.2e+07 Transitions= 4.81e+07 Memory=  1669.870	t=     23.7 R=   5e+05
+Depth= 6478919 States=  1.3e+07 Transitions= 5.23e+07 Memory=  1753.757	t=       26 R=   5e+05
+Depth= 6798191 States=  1.4e+07 Transitions= 5.65e+07 Memory=  1837.741	t=     28.2 R=   5e+05
+Depth= 7035783 States=  1.5e+07 Transitions= 6.07e+07 Memory=  1921.726	t=     30.6 R=   5e+05
+Depth= 7172089 States=  1.6e+07 Transitions=  6.5e+07 Memory=  2005.710	t=       33 R=   5e+05
+
+(Spin Version 6.2.5 -- 3 May 2013)
+	+ Partial Order Reduction
+
+Full statespace search for:
+	never claim         	+ (pS_WN)
+	assertion violations	+ (if within scope of claim)
+	acceptance   cycles 	+ (fairness disabled)
+	invalid end states	- (disabled by never claim)
+
+State-vector 140 byte, depth reached 7172089, errors: 0
+ 16586205 states, stored
+ 61528313 states, matched
+ 78114518 transitions (= stored+matched)
+       10 atomic steps
+hash conflicts:  21100269 (resolved)
+
+Stats on memory usage (in Megabytes):
+ 2657.397	equivalent memory usage for states (stored*(State-vector + overhead))
+ 1393.665	actual memory usage for states (compression: 52.44%)
+         	state-vector as stored = 60 byte + 28 byte overhead
+  128.000	memory used for hash table (-w24)
+  534.058	memory used for DFS stack (-m10000000)
+ 2054.929	total actual memory usage
+
+
+unreached in init
+	(0 of 15 states)
+unreached in proctype gen_t
+	var1.pml:112, state 58, "-end-"
+	(1 of 58 states)
+unreached in proctype NS
+	var1.pml:131, state 15, "-end-"
+	(1 of 15 states)
+unreached in proctype WN
+	var1.pml:151, state 17, "-end-"
+	(1 of 17 states)
+unreached in proctype NE
+	var1.pml:171, state 15, "-end-"
+	(1 of 15 states)
+unreached in proctype EW
+	var1.pml:191, state 15, "-end-"
+	(1 of 15 states)
+unreached in proctype ES
+	var1.pml:211, state 15, "-end-"
+	(1 of 15 states)
+unreached in proctype SW
+	var1.pml:231, state 15, "-end-"
+	(1 of 15 states)
+unreached in claim pS_WN
+	_spin_nvr.tmp:17, state 10, "-end-"
+	(1 of 10 states)
+
+pan: elapsed time 40.8 seconds
+No errors found -- did you verify all claims?
+spin -a  var1.pml
+ltl pS_NS: [] (! (((((NS@green)) && ((WN@green))) && ((SW@green))) && ((EW@green))))
+ltl pS_WN: [] (! ((((((WN@green)) && ((NS@green))) && ((NE@green))) && ((SW@green))) && ((EW@green))))
+ltl pS_EW: [] (! (((((EW@green)) && ((NE@green))) && ((WN@green))) && ((NS@green))))
+ltl pS_NE: [] (! (((((NE@green)) && ((WN@green))) && ((ES@green))) && ((EW@green))))
+ltl pS_ES: [] (! (((((SW@green)) && ((ES@green))) && ((WN@green))) && ((NS@green))))
+ltl pS_SW: [] (! (((((SW@green)) && ((ES@green))) && ((WN@green))) && ((NS@green))))
+ltl pF_NS: [] (<> ((! ([] (<> (! (((NS@green)) && ((gen_t@NSTrue))))))) || ([] ((! (((gen_t@NSTrue)) && ((NS@red)))) || (<> ((NS@green)))))))
+ltl pF_WN: [] (<> ((! ([] (<> (! (((WN@green)) && ((gen_t@WNTrue))))))) || ([] ((! (((gen_t@WNTrue)) && ((WN@red)))) || (<> ((WN@green)))))))
+ltl pF_EW: [] (<> ((! ([] (<> (! (((EW@green)) && ((gen_t@EWTrue))))))) || ([] ((! (((gen_t@EWTrue)) && ((EW@red)))) || (<> ((EW@green)))))))
+ltl pF_NE: [] (<> ((! ([] (<> (! (((NE@green)) && ((gen_t@NETrue))))))) || ([] ((! (((gen_t@NETrue)) && ((NE@red)))) || (<> ((NE@green)))))))
+ltl pF_ES: [] (<> ((! ([] (<> (! (((ES@green)) && ((gen_t@ESTrue))))))) || ([] ((! (((gen_t@ESTrue)) && ((ES@red)))) || (<> ((ES@green)))))))
+ltl pF_SW: [] (<> ((! ([] (<> (! (((SW@green)) && ((gen_t@SWTrue))))))) || ([] ((! (((gen_t@SWTrue)) && ((SW@red)))) || (<> ((SW@green)))))))
+  the model contains 12 never claims: pF_SW, pF_ES, pF_NE, pF_EW, pF_WN, pF_NS, pS_SW, pS_ES, pS_NE, pS_EW, pS_WN, pS_NS
+  only one claim is used in a verification run
+  choose which one with ./pan -a -N name (defaults to -N pS_NS)
+gcc -DMEMLIM=3500 -O2 -DXUSAFE -w -o pan pan.c
+./pan -m10000000  -a -N pS_NE
+Pid: 2832
+Depth=  995385 States=    1e+06 Transitions= 3.24e+06 Memory=   746.140	t=     1.49 R=   7e+05
+Depth= 1730295 States=    2e+06 Transitions= 7.01e+06 Memory=   830.124	t=     3.25 R=   6e+05
+Depth= 2341633 States=    3e+06 Transitions=  1.1e+07 Memory=   914.109	t=     5.12 R=   6e+05
+Depth= 2866353 States=    4e+06 Transitions= 1.51e+07 Memory=   998.093	t=      7.1 R=   6e+05
+Depth= 3358323 States=    5e+06 Transitions= 1.92e+07 Memory=  1082.077	t=     9.11 R=   5e+05
+Depth= 3764835 States=    6e+06 Transitions= 2.35e+07 Memory=  1166.062	t=     11.2 R=   5e+05
+Depth= 4189055 States=    7e+06 Transitions= 2.76e+07 Memory=  1249.948	t=     13.3 R=   5e+05
+Depth= 4601391 States=    8e+06 Transitions= 3.17e+07 Memory=  1333.933	t=     15.3 R=   5e+05
+Depth= 5035915 States=    9e+06 Transitions= 3.58e+07 Memory=  1417.917	t=     17.4 R=   5e+05
+Depth= 5453387 States=    1e+07 Transitions= 3.99e+07 Memory=  1501.902	t=     19.6 R=   5e+05
+Depth= 5832915 States=  1.1e+07 Transitions=  4.4e+07 Memory=  1585.886	t=     21.7 R=   5e+05
+Depth= 6176373 States=  1.2e+07 Transitions= 4.81e+07 Memory=  1669.870	t=       24 R=   5e+05
+Depth= 6478919 States=  1.3e+07 Transitions= 5.23e+07 Memory=  1753.757	t=     26.2 R=   5e+05
+Depth= 6798191 States=  1.4e+07 Transitions= 5.65e+07 Memory=  1837.741	t=     28.6 R=   5e+05
+Depth= 7035783 States=  1.5e+07 Transitions= 6.07e+07 Memory=  1921.726	t=     30.9 R=   5e+05
+Depth= 7172089 States=  1.6e+07 Transitions=  6.5e+07 Memory=  2005.710	t=     33.4 R=   5e+05
+
+(Spin Version 6.2.5 -- 3 May 2013)
+	+ Partial Order Reduction
+
+Full statespace search for:
+	never claim         	+ (pS_NE)
+	assertion violations	+ (if within scope of claim)
+	acceptance   cycles 	+ (fairness disabled)
+	invalid end states	- (disabled by never claim)
+
+State-vector 140 byte, depth reached 7172089, errors: 0
+ 16586205 states, stored
+ 61528313 states, matched
+ 78114518 transitions (= stored+matched)
+       10 atomic steps
+hash conflicts:  21122355 (resolved)
+
+Stats on memory usage (in Megabytes):
+ 2657.397	equivalent memory usage for states (stored*(State-vector + overhead))
+ 1393.665	actual memory usage for states (compression: 52.44%)
+         	state-vector as stored = 60 byte + 28 byte overhead
+  128.000	memory used for hash table (-w24)
+  534.058	memory used for DFS stack (-m10000000)
+ 2054.929	total actual memory usage
+
+
+unreached in init
+	(0 of 15 states)
+unreached in proctype gen_t
+	var1.pml:112, state 58, "-end-"
+	(1 of 58 states)
+unreached in proctype NS
+	var1.pml:131, state 15, "-end-"
+	(1 of 15 states)
+unreached in proctype WN
+	var1.pml:151, state 17, "-end-"
+	(1 of 17 states)
+unreached in proctype NE
+	var1.pml:171, state 15, "-end-"
+	(1 of 15 states)
+unreached in proctype EW
+	var1.pml:191, state 15, "-end-"
+	(1 of 15 states)
+unreached in proctype ES
+	var1.pml:211, state 15, "-end-"
+	(1 of 15 states)
+unreached in proctype SW
+	var1.pml:231, state 15, "-end-"
+	(1 of 15 states)
+unreached in claim pS_NE
+	_spin_nvr.tmp:35, state 10, "-end-"
+	(1 of 10 states)
+
+pan: elapsed time 41.2 seconds
+No errors found -- did you verify all claims?
+spin -a  var1.pml
+ltl pS_NS: [] (! (((((NS@green)) && ((WN@green))) && ((SW@green))) && ((EW@green))))
+ltl pS_WN: [] (! ((((((WN@green)) && ((NS@green))) && ((NE@green))) && ((SW@green))) && ((EW@green))))
+ltl pS_EW: [] (! (((((EW@green)) && ((NE@green))) && ((WN@green))) && ((NS@green))))
+ltl pS_NE: [] (! (((((NE@green)) && ((WN@green))) && ((ES@green))) && ((EW@green))))
+ltl pS_ES: [] (! (((((SW@green)) && ((ES@green))) && ((WN@green))) && ((NS@green))))
+ltl pS_SW: [] (! (((((SW@green)) && ((ES@green))) && ((WN@green))) && ((NS@green))))
+ltl pF_NS: [] (<> ((! ([] (<> (! (((NS@green)) && ((gen_t@NSTrue))))))) || ([] ((! (((gen_t@NSTrue)) && ((NS@red)))) || (<> ((NS@green)))))))
+ltl pF_WN: [] (<> ((! ([] (<> (! (((WN@green)) && ((gen_t@WNTrue))))))) || ([] ((! (((gen_t@WNTrue)) && ((WN@red)))) || (<> ((WN@green)))))))
+ltl pF_EW: [] (<> ((! ([] (<> (! (((EW@green)) && ((gen_t@EWTrue))))))) || ([] ((! (((gen_t@EWTrue)) && ((EW@red)))) || (<> ((EW@green)))))))
+ltl pF_NE: [] (<> ((! ([] (<> (! (((NE@green)) && ((gen_t@NETrue))))))) || ([] ((! (((gen_t@NETrue)) && ((NE@red)))) || (<> ((NE@green)))))))
+ltl pF_ES: [] (<> ((! ([] (<> (! (((ES@green)) && ((gen_t@ESTrue))))))) || ([] ((! (((gen_t@ESTrue)) && ((ES@red)))) || (<> ((ES@green)))))))
+ltl pF_SW: [] (<> ((! ([] (<> (! (((SW@green)) && ((gen_t@SWTrue))))))) || ([] ((! (((gen_t@SWTrue)) && ((SW@red)))) || (<> ((SW@green)))))))
+  the model contains 12 never claims: pF_SW, pF_ES, pF_NE, pF_EW, pF_WN, pF_NS, pS_SW, pS_ES, pS_NE, pS_EW, pS_WN, pS_NS
+  only one claim is used in a verification run
+  choose which one with ./pan -a -N name (defaults to -N pS_NS)
+gcc -DMEMLIM=3500 -O2 -DXUSAFE -w -o pan pan.c
+./pan -m10000000  -a -N pS_EW
+Pid: 2857
+Depth=  995385 States=    1e+06 Transitions= 3.24e+06 Memory=   746.140	t=     1.46 R=   7e+05
+Depth= 1730295 States=    2e+06 Transitions= 7.01e+06 Memory=   830.124	t=     3.19 R=   6e+05
+Depth= 2341633 States=    3e+06 Transitions=  1.1e+07 Memory=   914.109	t=     5.06 R=   6e+05
+Depth= 2866353 States=    4e+06 Transitions= 1.51e+07 Memory=   998.093	t=     7.01 R=   6e+05
+Depth= 3358323 States=    5e+06 Transitions= 1.92e+07 Memory=  1082.077	t=        9 R=   6e+05
+Depth= 3764835 States=    6e+06 Transitions= 2.35e+07 Memory=  1166.062	t=     11.1 R=   5e+05
+Depth= 4189055 States=    7e+06 Transitions= 2.76e+07 Memory=  1249.948	t=     13.1 R=   5e+05
+Depth= 4601391 States=    8e+06 Transitions= 3.17e+07 Memory=  1333.933	t=     15.2 R=   5e+05
+Depth= 5035915 States=    9e+06 Transitions= 3.58e+07 Memory=  1417.917	t=     17.2 R=   5e+05
+Depth= 5453387 States=    1e+07 Transitions= 3.99e+07 Memory=  1501.902	t=     19.4 R=   5e+05
+Depth= 5832915 States=  1.1e+07 Transitions=  4.4e+07 Memory=  1585.886	t=     21.5 R=   5e+05
+Depth= 6176373 States=  1.2e+07 Transitions= 4.81e+07 Memory=  1669.870	t=     23.7 R=   5e+05
+Depth= 6478919 States=  1.3e+07 Transitions= 5.23e+07 Memory=  1753.757	t=       26 R=   5e+05
+Depth= 6798191 States=  1.4e+07 Transitions= 5.65e+07 Memory=  1837.741	t=     28.2 R=   5e+05
+Depth= 7035783 States=  1.5e+07 Transitions= 6.07e+07 Memory=  1921.726	t=     30.5 R=   5e+05
+Depth= 7172089 States=  1.6e+07 Transitions=  6.5e+07 Memory=  2005.710	t=       33 R=   5e+05
+
+(Spin Version 6.2.5 -- 3 May 2013)
+	+ Partial Order Reduction
+
+Full statespace search for:
+	never claim         	+ (pS_EW)
+	assertion violations	+ (if within scope of claim)
+	acceptance   cycles 	+ (fairness disabled)
+	invalid end states	- (disabled by never claim)
+
+State-vector 140 byte, depth reached 7172089, errors: 0
+ 16586205 states, stored
+ 61528313 states, matched
+ 78114518 transitions (= stored+matched)
+       10 atomic steps
+hash conflicts:  21107323 (resolved)
+
+Stats on memory usage (in Megabytes):
+ 2657.397	equivalent memory usage for states (stored*(State-vector + overhead))
+ 1393.665	actual memory usage for states (compression: 52.44%)
+         	state-vector as stored = 60 byte + 28 byte overhead
+  128.000	memory used for hash table (-w24)
+  534.058	memory used for DFS stack (-m10000000)
+ 2054.929	total actual memory usage
+
+
+unreached in init
+	(0 of 15 states)
+unreached in proctype gen_t
+	var1.pml:112, state 58, "-end-"
+	(1 of 58 states)
+unreached in proctype NS
+	var1.pml:131, state 15, "-end-"
+	(1 of 15 states)
+unreached in proctype WN
+	var1.pml:151, state 17, "-end-"
+	(1 of 17 states)
+unreached in proctype NE
+	var1.pml:171, state 15, "-end-"
+	(1 of 15 states)
+unreached in proctype EW
+	var1.pml:191, state 15, "-end-"
+	(1 of 15 states)
+unreached in proctype ES
+	var1.pml:211, state 15, "-end-"
+	(1 of 15 states)
+unreached in proctype SW
+	var1.pml:231, state 15, "-end-"
+	(1 of 15 states)
+unreached in claim pS_EW
+	_spin_nvr.tmp:26, state 10, "-end-"
+	(1 of 10 states)
+
+pan: elapsed time 40.8 seconds
+No errors found -- did you verify all claims?
+spin -a  var1.pml
+ltl pS_NS: [] (! (((((NS@green)) && ((WN@green))) && ((SW@green))) && ((EW@green))))
+ltl pS_WN: [] (! ((((((WN@green)) && ((NS@green))) && ((NE@green))) && ((SW@green))) && ((EW@green))))
+ltl pS_EW: [] (! (((((EW@green)) && ((NE@green))) && ((WN@green))) && ((NS@green))))
+ltl pS_NE: [] (! (((((NE@green)) && ((WN@green))) && ((ES@green))) && ((EW@green))))
+ltl pS_ES: [] (! (((((SW@green)) && ((ES@green))) && ((WN@green))) && ((NS@green))))
+ltl pS_SW: [] (! (((((SW@green)) && ((ES@green))) && ((WN@green))) && ((NS@green))))
+ltl pF_NS: [] (<> ((! ([] (<> (! (((NS@green)) && ((gen_t@NSTrue))))))) || ([] ((! (((gen_t@NSTrue)) && ((NS@red)))) || (<> ((NS@green)))))))
+ltl pF_WN: [] (<> ((! ([] (<> (! (((WN@green)) && ((gen_t@WNTrue))))))) || ([] ((! (((gen_t@WNTrue)) && ((WN@red)))) || (<> ((WN@green)))))))
+ltl pF_EW: [] (<> ((! ([] (<> (! (((EW@green)) && ((gen_t@EWTrue))))))) || ([] ((! (((gen_t@EWTrue)) && ((EW@red)))) || (<> ((EW@green)))))))
+ltl pF_NE: [] (<> ((! ([] (<> (! (((NE@green)) && ((gen_t@NETrue))))))) || ([] ((! (((gen_t@NETrue)) && ((NE@red)))) || (<> ((NE@green)))))))
+ltl pF_ES: [] (<> ((! ([] (<> (! (((ES@green)) && ((gen_t@ESTrue))))))) || ([] ((! (((gen_t@ESTrue)) && ((ES@red)))) || (<> ((ES@green)))))))
+ltl pF_SW: [] (<> ((! ([] (<> (! (((SW@green)) && ((gen_t@SWTrue))))))) || ([] ((! (((gen_t@SWTrue)) && ((SW@red)))) || (<> ((SW@green)))))))
+  the model contains 12 never claims: pF_SW, pF_ES, pF_NE, pF_EW, pF_WN, pF_NS, pS_SW, pS_ES, pS_NE, pS_EW, pS_WN, pS_NS
+  only one claim is used in a verification run
+  choose which one with ./pan -a -N name (defaults to -N pS_NS)
+gcc -DMEMLIM=3500 -O2 -DXUSAFE -w -o pan pan.c
+./pan -m10000000  -a -N pS_ES
+Pid: 2897
+Depth=  995385 States=    1e+06 Transitions= 3.24e+06 Memory=   746.140	t=     1.49 R=   7e+05
+Depth= 1730295 States=    2e+06 Transitions= 7.01e+06 Memory=   830.124	t=     3.24 R=   6e+05
+Depth= 2341633 States=    3e+06 Transitions=  1.1e+07 Memory=   914.109	t=     5.12 R=   6e+05
+Depth= 2866353 States=    4e+06 Transitions= 1.51e+07 Memory=   998.093	t=     7.08 R=   6e+05
+Depth= 3358323 States=    5e+06 Transitions= 1.92e+07 Memory=  1082.077	t=     9.07 R=   6e+05
+Depth= 3764835 States=    6e+06 Transitions= 2.35e+07 Memory=  1166.062	t=     11.1 R=   5e+05
+Depth= 4189055 States=    7e+06 Transitions= 2.76e+07 Memory=  1249.948	t=     13.2 R=   5e+05
+Depth= 4601391 States=    8e+06 Transitions= 3.17e+07 Memory=  1333.933	t=     15.3 R=   5e+05
+Depth= 5035915 States=    9e+06 Transitions= 3.58e+07 Memory=  1417.917	t=     17.3 R=   5e+05
+Depth= 5453387 States=    1e+07 Transitions= 3.99e+07 Memory=  1501.902	t=     19.5 R=   5e+05
+Depth= 5832915 States=  1.1e+07 Transitions=  4.4e+07 Memory=  1585.886	t=     21.6 R=   5e+05
+Depth= 6176373 States=  1.2e+07 Transitions= 4.81e+07 Memory=  1669.870	t=     23.8 R=   5e+05
+Depth= 6478919 States=  1.3e+07 Transitions= 5.23e+07 Memory=  1753.757	t=     26.1 R=   5e+05
+Depth= 6798191 States=  1.4e+07 Transitions= 5.65e+07 Memory=  1837.741	t=     28.4 R=   5e+05
+Depth= 7035783 States=  1.5e+07 Transitions= 6.07e+07 Memory=  1921.726	t=     30.7 R=   5e+05
+Depth= 7172089 States=  1.6e+07 Transitions=  6.5e+07 Memory=  2005.710	t=     33.1 R=   5e+05
+
+(Spin Version 6.2.5 -- 3 May 2013)
+	+ Partial Order Reduction
+
+Full statespace search for:
+	never claim         	+ (pS_ES)
+	assertion violations	+ (if within scope of claim)
+	acceptance   cycles 	+ (fairness disabled)
+	invalid end states	- (disabled by never claim)
+
+State-vector 140 byte, depth reached 7172089, errors: 0
+ 16586205 states, stored
+ 61528313 states, matched
+ 78114518 transitions (= stored+matched)
+       10 atomic steps
+hash conflicts:  21101977 (resolved)
+
+Stats on memory usage (in Megabytes):
+ 2657.397	equivalent memory usage for states (stored*(State-vector + overhead))
+ 1393.665	actual memory usage for states (compression: 52.44%)
+         	state-vector as stored = 60 byte + 28 byte overhead
+  128.000	memory used for hash table (-w24)
+  534.058	memory used for DFS stack (-m10000000)
+ 2054.929	total actual memory usage
+
+
+unreached in init
+	(0 of 15 states)
+unreached in proctype gen_t
+	var1.pml:112, state 58, "-end-"
+	(1 of 58 states)
+unreached in proctype NS
+	var1.pml:131, state 15, "-end-"
+	(1 of 15 states)
+unreached in proctype WN
+	var1.pml:151, state 17, "-end-"
+	(1 of 17 states)
+unreached in proctype NE
+	var1.pml:171, state 15, "-end-"
+	(1 of 15 states)
+unreached in proctype EW
+	var1.pml:191, state 15, "-end-"
+	(1 of 15 states)
+unreached in proctype ES
+	var1.pml:211, state 15, "-end-"
+	(1 of 15 states)
+unreached in proctype SW
+	var1.pml:231, state 15, "-end-"
+	(1 of 15 states)
+unreached in claim pS_ES
+	_spin_nvr.tmp:44, state 10, "-end-"
+	(1 of 10 states)
+
+pan: elapsed time 41 seconds
+No errors found -- did you verify all claims?
+spin -a  var1.pml
+ltl pS_NS: [] (! (((((NS@green)) && ((WN@green))) && ((SW@green))) && ((EW@green))))
+ltl pS_WN: [] (! ((((((WN@green)) && ((NS@green))) && ((NE@green))) && ((SW@green))) && ((EW@green))))
+ltl pS_EW: [] (! (((((EW@green)) && ((NE@green))) && ((WN@green))) && ((NS@green))))
+ltl pS_NE: [] (! (((((NE@green)) && ((WN@green))) && ((ES@green))) && ((EW@green))))
+ltl pS_ES: [] (! (((((SW@green)) && ((ES@green))) && ((WN@green))) && ((NS@green))))
+ltl pS_SW: [] (! (((((SW@green)) && ((ES@green))) && ((WN@green))) && ((NS@green))))
+ltl pF_NS: [] (<> ((! ([] (<> (! (((NS@green)) && ((gen_t@NSTrue))))))) || ([] ((! (((gen_t@NSTrue)) && ((NS@red)))) || (<> ((NS@green)))))))
+ltl pF_WN: [] (<> ((! ([] (<> (! (((WN@green)) && ((gen_t@WNTrue))))))) || ([] ((! (((gen_t@WNTrue)) && ((WN@red)))) || (<> ((WN@green)))))))
+ltl pF_EW: [] (<> ((! ([] (<> (! (((EW@green)) && ((gen_t@EWTrue))))))) || ([] ((! (((gen_t@EWTrue)) && ((EW@red)))) || (<> ((EW@green)))))))
+ltl pF_NE: [] (<> ((! ([] (<> (! (((NE@green)) && ((gen_t@NETrue))))))) || ([] ((! (((gen_t@NETrue)) && ((NE@red)))) || (<> ((NE@green)))))))
+ltl pF_ES: [] (<> ((! ([] (<> (! (((ES@green)) && ((gen_t@ESTrue))))))) || ([] ((! (((gen_t@ESTrue)) && ((ES@red)))) || (<> ((ES@green)))))))
+ltl pF_SW: [] (<> ((! ([] (<> (! (((SW@green)) && ((gen_t@SWTrue))))))) || ([] ((! (((gen_t@SWTrue)) && ((SW@red)))) || (<> ((SW@green)))))))
+  the model contains 12 never claims: pF_SW, pF_ES, pF_NE, pF_EW, pF_WN, pF_NS, pS_SW, pS_ES, pS_NE, pS_EW, pS_WN, pS_NS
+  only one claim is used in a verification run
+  choose which one with ./pan -a -N name (defaults to -N pS_NS)
+gcc -DMEMLIM=3500 -O2 -DXUSAFE -w -o pan pan.c
+./pan -m10000000  -a -N pS_SW
+Pid: 2921
+Depth=  995385 States=    1e+06 Transitions= 3.24e+06 Memory=   746.140	t=     1.48 R=   7e+05
+Depth= 1730295 States=    2e+06 Transitions= 7.01e+06 Memory=   830.124	t=     3.26 R=   6e+05
+Depth= 2341633 States=    3e+06 Transitions=  1.1e+07 Memory=   914.109	t=     5.16 R=   6e+05
+Depth= 2866353 States=    4e+06 Transitions= 1.51e+07 Memory=   998.093	t=     7.13 R=   6e+05
+Depth= 3358323 States=    5e+06 Transitions= 1.92e+07 Memory=  1082.077	t=     9.12 R=   5e+05
+Depth= 3764835 States=    6e+06 Transitions= 2.35e+07 Memory=  1166.062	t=     11.2 R=   5e+05
+Depth= 4189055 States=    7e+06 Transitions= 2.76e+07 Memory=  1249.948	t=     13.2 R=   5e+05
+Depth= 4601391 States=    8e+06 Transitions= 3.17e+07 Memory=  1333.933	t=     15.3 R=   5e+05
+Depth= 5035915 States=    9e+06 Transitions= 3.58e+07 Memory=  1417.917	t=     17.4 R=   5e+05
+Depth= 5453387 States=    1e+07 Transitions= 3.99e+07 Memory=  1501.902	t=     19.5 R=   5e+05
+Depth= 5832915 States=  1.1e+07 Transitions=  4.4e+07 Memory=  1585.886	t=     21.7 R=   5e+05
+Depth= 6176373 States=  1.2e+07 Transitions= 4.81e+07 Memory=  1669.870	t=     23.9 R=   5e+05
+Depth= 6478919 States=  1.3e+07 Transitions= 5.23e+07 Memory=  1753.757	t=     26.2 R=   5e+05
+Depth= 6798191 States=  1.4e+07 Transitions= 5.65e+07 Memory=  1837.741	t=     28.4 R=   5e+05
+Depth= 7035783 States=  1.5e+07 Transitions= 6.07e+07 Memory=  1921.726	t=     30.8 R=   5e+05
+Depth= 7172089 States=  1.6e+07 Transitions=  6.5e+07 Memory=  2005.710	t=     33.2 R=   5e+05
+
+(Spin Version 6.2.5 -- 3 May 2013)
+	+ Partial Order Reduction
+
+Full statespace search for:
+	never claim         	+ (pS_SW)
+	assertion violations	+ (if within scope of claim)
+	acceptance   cycles 	+ (fairness disabled)
+	invalid end states	- (disabled by never claim)
+
+State-vector 140 byte, depth reached 7172089, errors: 0
+ 16586205 states, stored
+ 61528313 states, matched
+ 78114518 transitions (= stored+matched)
+       10 atomic steps
+hash conflicts:  21116916 (resolved)
+
+Stats on memory usage (in Megabytes):
+ 2657.397	equivalent memory usage for states (stored*(State-vector + overhead))
+ 1393.665	actual memory usage for states (compression: 52.44%)
+         	state-vector as stored = 60 byte + 28 byte overhead
+  128.000	memory used for hash table (-w24)
+  534.058	memory used for DFS stack (-m10000000)
+ 2054.929	total actual memory usage
+
+
+unreached in init
+	(0 of 15 states)
+unreached in proctype gen_t
+	var1.pml:112, state 58, "-end-"
+	(1 of 58 states)
+unreached in proctype NS
+	var1.pml:131, state 15, "-end-"
+	(1 of 15 states)
+unreached in proctype WN
+	var1.pml:151, state 17, "-end-"
+	(1 of 17 states)
+unreached in proctype NE
+	var1.pml:171, state 15, "-end-"
+	(1 of 15 states)
+unreached in proctype EW
+	var1.pml:191, state 15, "-end-"
+	(1 of 15 states)
+unreached in proctype ES
+	var1.pml:211, state 15, "-end-"
+	(1 of 15 states)
+unreached in proctype SW
+	var1.pml:231, state 15, "-end-"
+	(1 of 15 states)
+unreached in claim pS_SW
+	_spin_nvr.tmp:53, state 10, "-end-"
+	(1 of 10 states)
+
+pan: elapsed time 41 seconds
+No errors found -- did you verify all claims?
+spin -a  var1.pml
+ltl pS_NS: [] (! (((((NS@green)) && ((WN@green))) && ((SW@green))) && ((EW@green))))
+ltl pS_WN: [] (! ((((((WN@green)) && ((NS@green))) && ((NE@green))) && ((SW@green))) && ((EW@green))))
+ltl pS_EW: [] (! (((((EW@green)) && ((NE@green))) && ((WN@green))) && ((NS@green))))
+ltl pS_NE: [] (! (((((NE@green)) && ((WN@green))) && ((ES@green))) && ((EW@green))))
+ltl pS_ES: [] (! (((((SW@green)) && ((ES@green))) && ((WN@green))) && ((NS@green))))
+ltl pS_SW: [] (! (((((SW@green)) && ((ES@green))) && ((WN@green))) && ((NS@green))))
+ltl pF_NS: [] (<> ((! ([] (<> (! (((NS@green)) && ((gen_t@NSTrue))))))) || ([] ((! (((gen_t@NSTrue)) && ((NS@red)))) || (<> ((NS@green)))))))
+ltl pF_WN: [] (<> ((! ([] (<> (! (((WN@green)) && ((gen_t@WNTrue))))))) || ([] ((! (((gen_t@WNTrue)) && ((WN@red)))) || (<> ((WN@green)))))))
+ltl pF_EW: [] (<> ((! ([] (<> (! (((EW@green)) && ((gen_t@EWTrue))))))) || ([] ((! (((gen_t@EWTrue)) && ((EW@red)))) || (<> ((EW@green)))))))
+ltl pF_NE: [] (<> ((! ([] (<> (! (((NE@green)) && ((gen_t@NETrue))))))) || ([] ((! (((gen_t@NETrue)) && ((NE@red)))) || (<> ((NE@green)))))))
+ltl pF_ES: [] (<> ((! ([] (<> (! (((ES@green)) && ((gen_t@ESTrue))))))) || ([] ((! (((gen_t@ESTrue)) && ((ES@red)))) || (<> ((ES@green)))))))
+ltl pF_SW: [] (<> ((! ([] (<> (! (((SW@green)) && ((gen_t@SWTrue))))))) || ([] ((! (((gen_t@SWTrue)) && ((SW@red)))) || (<> ((SW@green)))))))
+  the model contains 12 never claims: pF_SW, pF_ES, pF_NE, pF_EW, pF_WN, pF_NS, pS_SW, pS_ES, pS_NE, pS_EW, pS_WN, pS_NS
+  only one claim is used in a verification run
+  choose which one with ./pan -a -N name (defaults to -N pS_NS)
+gcc -DMEMLIM=3500 -O2 -DXUSAFE -w -o pan pan.c
+./pan -m10000000  -a -N pF_NS
+Pid: 2943
+Depth=  321821 States=    1e+06 Transitions= 3.34e+06 Memory=   746.140	t=      1.5 R=   7e+05
+Depth=  722187 States=    2e+06 Transitions= 7.14e+06 Memory=   830.124	t=     3.27 R=   6e+05
+Depth= 1016981 States=    3e+06 Transitions= 1.11e+07 Memory=   914.109	t=     5.15 R=   6e+05
+Depth= 1122348 States=    4e+06 Transitions= 1.64e+07 Memory=   959.909	t=     7.71 R=   5e+05
+Depth= 1122348 States=    5e+06 Transitions= 1.96e+07 Memory=   959.909	t=     9.23 R=   5e+05
+Depth= 1122348 States=    6e+06 Transitions= 2.36e+07 Memory=   959.909	t=     11.1 R=   5e+05
+Depth= 1122348 States=    7e+06 Transitions= 2.73e+07 Memory=   959.909	t=     12.9 R=   5e+05
+Depth= 1122348 States=    8e+06 Transitions= 3.32e+07 Memory=  1015.573	t=     15.6 R=   5e+05
+Depth= 1122348 States=    9e+06 Transitions= 3.76e+07 Memory=  1076.706	t=     17.6 R=   5e+05
+Depth= 1122348 States=    1e+07 Transitions= 4.22e+07 Memory=  1136.277	t=     19.6 R=   5e+05
+Depth= 1122348 States=  1.1e+07 Transitions=  4.7e+07 Memory=  1195.456	t=     21.8 R=   5e+05
+Depth= 1122348 States=  1.2e+07 Transitions= 5.23e+07 Memory=  1252.683	t=     24.2 R=   5e+05
+Depth= 1122348 States=  1.3e+07 Transitions= 5.79e+07 Memory=  1309.226	t=     26.8 R=   5e+05
+Depth= 1122348 States=  1.4e+07 Transitions= 6.35e+07 Memory=  1365.866	t=     29.3 R=   5e+05
+Depth= 1122348 States=  1.5e+07 Transitions= 6.84e+07 Memory=  1423.972	t=     31.6 R=   5e+05
+Depth= 1122348 States=  1.6e+07 Transitions= 7.38e+07 Memory=  1480.808	t=     34.2 R=   5e+05
+Depth= 1122348 States=  1.7e+07 Transitions= 8.04e+07 Memory=  1534.616	t=     37.4 R=   5e+05
+Depth= 1122348 States=  1.8e+07 Transitions= 8.65e+07 Memory=  1605.417	t=     40.6 R=   4e+05
+Depth= 1122348 States=  1.9e+07 Transitions= 9.12e+07 Memory=  1689.402	t=       43 R=   4e+05
+Depth= 1122348 States=    2e+07 Transitions= 9.75e+07 Memory=  1752.683	t=     46.4 R=   4e+05
+Depth= 1122348 States=  2.1e+07 Transitions= 1.02e+08 Memory=  1752.683	t=     48.6 R=   4e+05
+Depth= 1122348 States=  2.2e+07 Transitions= 1.06e+08 Memory=  1752.683	t=       51 R=   4e+05
+Depth= 1122348 States=  2.3e+07 Transitions= 1.13e+08 Memory=  1801.706	t=     54.4 R=   4e+05
+Depth= 1122348 States=  2.4e+07 Transitions= 1.19e+08 Memory=  1859.323	t=     57.1 R=   4e+05
+Depth= 1122348 States=  2.5e+07 Transitions= 1.25e+08 Memory=  1916.062	t=     60.1 R=   4e+05
+Depth= 1122348 States=  2.6e+07 Transitions= 1.31e+08 Memory=  1972.116	t=     63.3 R=   4e+05
+Depth= 1122348 States=  2.7e+07 Transitions= 1.37e+08 Memory=  2028.659	t=     66.3 R=   4e+05
+Depth= 1122348 States=  2.8e+07 Transitions= 1.43e+08 Memory=  2085.300	t=     69.3 R=   4e+05
+Depth= 1122348 States=  2.9e+07 Transitions=  1.5e+08 Memory=  2139.694	t=       73 R=   4e+05
+Depth= 1122348 States=    3e+07 Transitions= 1.58e+08 Memory=  2186.960	t=     77.2 R=   4e+05
+pan:1: acceptance cycle (at depth 106)
+pan: wrote var1.pml.trail
+
+(Spin Version 6.2.5 -- 3 May 2013)
+Warning: Search not completed
+	+ Partial Order Reduction
+
+Full statespace search for:
+	never claim         	+ (pF_NS)
+	assertion violations	+ (if within scope of claim)
+	acceptance   cycles 	+ (fairness disabled)
+	invalid end states	- (disabled by never claim)
+
+State-vector 140 byte, depth reached 1122348, errors: 1
+ 18299420 states, stored (3.02236e+07 visited)
+1.2925958e+08 states, matched
+1.594832e+08 transitions (= visited+matched)
+       10 atomic steps
+hash conflicts:  45574122 (resolved)
+
+Stats on memory usage (in Megabytes):
+ 2931.883	equivalent memory usage for states (stored*(State-vector + overhead))
+ 1537.591	actual memory usage for states (compression: 52.44%)
+         	state-vector as stored = 60 byte + 28 byte overhead
+  128.000	memory used for hash table (-w24)
+  534.058	memory used for DFS stack (-m10000000)
+ 2198.777	total actual memory usage
+
+
+
+pan: elapsed time 77.8 seconds
+To replay the error-trail, goto Simulate/Replay and select "Run"
+
+
