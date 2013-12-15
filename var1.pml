@@ -74,7 +74,9 @@ ltl p1_5 {[] (pSW_L -> (<> qSW_L))}
 ltl p1_6 {[] (pES_L -> (<> qES_L))}
 
 /*Fairness*/
-ltl p2_1 {[] <> !pNS_F -> ([] <> (!pNS_F) && (pNS_L -> (<> qNS_L)))}
+
+ltl p2_1 {[]<> ( ([]<> !(pNS_F)) -> ([] (pNS_L -> <> qNS_L)))}
+
 ltl p2_2 {[] <> !pWN_F -> ([] <> (!pWN_F) && (pWN_L -> (<> qWN_L)))}
 ltl p2_3 {[] <> !pEW_F -> ([] <> (!pEW_F) && (pEW_L -> (<> qEW_L)))}
 ltl p2_4 {[] <> !pNE_F -> ([] <> (!pNE_F) && (pNE_L -> (<> qNE_L)))}

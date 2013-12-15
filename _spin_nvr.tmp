@@ -118,69 +118,234 @@ accept_S4:
 	:: (! (((ES_L==Green)))) -> goto accept_S4
 	od;
 }
-never p2_1 {    /* !([] (<> (! (((NS_L==Green)) && (NS_S))))) */
+never p2_1 {    /* !([] (<> ((! ([] (<> (! (((NS_L==Green)) && (NS_S)))))) || ([] ((! ((NS_S) && ((NS_L==Red)))) || (<> ((NS_L==Green)))))))) */
 T0_init:
 	do
-	:: (! ((! (((NS_L==Green)) && (NS_S))))) -> goto accept_S4
+	:: ((! (((NS_L==Green)) && (NS_S))) && ! ((! ((NS_S) && ((NS_L==Red))))) && ! (((NS_L==Green)))) -> goto accept_S12
+	:: (! ((! ((NS_S) && ((NS_L==Red))))) && ! (((NS_L==Green)))) -> goto T2_S6
+	:: (1) -> goto T0_S623
 	:: (1) -> goto T0_init
 	od;
-accept_S4:
+accept_S12:
 	do
-	:: (! ((! (((NS_L==Green)) && (NS_S))))) -> goto accept_S4
+	:: ((! (((NS_L==Green)) && (NS_S))) && ! ((! ((NS_S) && ((NS_L==Red))))) && ! (((NS_L==Green)))) -> goto T0_S12
+	:: (! (((NS_L==Green)))) -> goto T0_S6
+	od;
+accept_S6:
+	do
+	:: (! (((NS_L==Green)))) -> goto T0_S6
+	od;
+T2_S6:
+	do
+	:: (! (((NS_L==Green)))) -> goto T2_S6
+	:: ((! (((NS_L==Green)) && (NS_S))) && ! (((NS_L==Green)))) -> goto accept_S6
+	od;
+T0_S12:
+	do
+	:: ((! (((NS_L==Green)) && (NS_S))) && ! ((! ((NS_S) && ((NS_L==Red))))) && ! (((NS_L==Green)))) -> goto accept_S12
+	:: (! ((! ((NS_S) && ((NS_L==Red))))) && ! (((NS_L==Green)))) -> goto T2_S6
+	:: (! (((NS_L==Green)))) -> goto T0_S6
+	od;
+T0_S6:
+	do
+	:: (! ((! ((NS_S) && ((NS_L==Red))))) && ! (((NS_L==Green)))) -> goto T2_S6
+	:: ((! (((NS_L==Green)) && (NS_S))) && ! ((! ((NS_S) && ((NS_L==Red))))) && ! (((NS_L==Green)))) -> goto accept_S6
+	:: (! (((NS_L==Green)))) -> goto T0_S6
+	od;
+T0_S623:
+	do
+	:: (! ((! ((NS_S) && ((NS_L==Red))))) && ! (((NS_L==Green)))) -> goto T2_S6
+	:: ((! (((NS_L==Green)) && (NS_S))) && ! ((! ((NS_S) && ((NS_L==Red))))) && ! (((NS_L==Green)))) -> goto accept_S6
+	:: (1) -> goto T0_S623
 	od;
 }
-never p2_2 {    /* !([] (<> (! (((WN_L==Green)) && (WN_S))))) */
+never p2_2 {    /* !((! ([] (<> (! (((WN_L==Green)) && (WN_S)))))) || (([] (<> (! (((WN_L==Green)) && (WN_S))))) && ((! ((WN_S) && ((WN_L==Red)))) || (<> ((WN_L==Green)))))) */
 T0_init:
 	do
-	:: (! ((! (((WN_L==Green)) && (WN_S))))) -> goto accept_S4
-	:: (1) -> goto T0_init
+	:: ((! (((WN_L==Green)) && (WN_S)))) -> goto T1_S197
+	:: ((! (((WN_L==Green)) && (WN_S))) && ! ((! ((WN_S) && ((WN_L==Red))))) && ! (((WN_L==Green)))) -> goto accept_S227
+	:: (! ((! (((WN_L==Green)) && (WN_S))))) -> goto T0_S198
+	:: (1) -> goto T0_S197
+	:: (! ((! ((WN_S) && ((WN_L==Red))))) && ! (((WN_L==Green)))) -> goto T0_S227
 	od;
-accept_S4:
+accept_S198:
 	do
-	:: (! ((! (((WN_L==Green)) && (WN_S))))) -> goto accept_S4
+	:: (! ((! (((WN_L==Green)) && (WN_S))))) -> goto T0_S198
+	od;
+accept_S227:
+	do
+	:: (! (((WN_L==Green)))) -> goto T0_S227
+	od;
+T1_S197:
+	do
+	:: (! ((! (((WN_L==Green)) && (WN_S))))) -> goto accept_S198
+	:: (1) -> goto T1_S197
+	od;
+T0_S198:
+	do
+	:: (! ((! (((WN_L==Green)) && (WN_S))))) -> goto T0_S198
+	od;
+T0_S197:
+	do
+	:: (! ((! (((WN_L==Green)) && (WN_S))))) -> goto T0_S198
+	:: ((! (((WN_L==Green)) && (WN_S)))) -> goto T1_S197
+	:: (1) -> goto T0_S197
+	od;
+T0_S227:
+	do
+	:: ((! (((WN_L==Green)) && (WN_S))) && ! (((WN_L==Green)))) -> goto accept_S227
+	:: (! (((WN_L==Green)))) -> goto T0_S227
 	od;
 }
-never p2_3 {    /* !([] (<> (! (((EW_L==Green)) && (EW_S))))) */
+never p2_3 {    /* !((! ([] (<> (! (((EW_L==Green)) && (EW_S)))))) || (([] (<> (! (((EW_L==Green)) && (EW_S))))) && ((! ((EW_S) && ((EW_L==Red)))) || (<> ((EW_L==Green)))))) */
 T0_init:
 	do
-	:: (! ((! (((EW_L==Green)) && (EW_S))))) -> goto accept_S4
-	:: (1) -> goto T0_init
+	:: ((! (((EW_L==Green)) && (EW_S)))) -> goto T1_S197
+	:: ((! (((EW_L==Green)) && (EW_S))) && ! ((! ((EW_S) && ((EW_L==Red))))) && ! (((EW_L==Green)))) -> goto accept_S227
+	:: (! ((! (((EW_L==Green)) && (EW_S))))) -> goto T0_S198
+	:: (1) -> goto T0_S197
+	:: (! ((! ((EW_S) && ((EW_L==Red))))) && ! (((EW_L==Green)))) -> goto T0_S227
 	od;
-accept_S4:
+accept_S198:
 	do
-	:: (! ((! (((EW_L==Green)) && (EW_S))))) -> goto accept_S4
+	:: (! ((! (((EW_L==Green)) && (EW_S))))) -> goto T0_S198
+	od;
+accept_S227:
+	do
+	:: (! (((EW_L==Green)))) -> goto T0_S227
+	od;
+T1_S197:
+	do
+	:: (! ((! (((EW_L==Green)) && (EW_S))))) -> goto accept_S198
+	:: (1) -> goto T1_S197
+	od;
+T0_S198:
+	do
+	:: (! ((! (((EW_L==Green)) && (EW_S))))) -> goto T0_S198
+	od;
+T0_S197:
+	do
+	:: (! ((! (((EW_L==Green)) && (EW_S))))) -> goto T0_S198
+	:: ((! (((EW_L==Green)) && (EW_S)))) -> goto T1_S197
+	:: (1) -> goto T0_S197
+	od;
+T0_S227:
+	do
+	:: ((! (((EW_L==Green)) && (EW_S))) && ! (((EW_L==Green)))) -> goto accept_S227
+	:: (! (((EW_L==Green)))) -> goto T0_S227
 	od;
 }
-never p2_4 {    /* !([] (<> (! (((NE_L==Green)) && (NE_S))))) */
+never p2_4 {    /* !((! ([] (<> (! (((NE_L==Green)) && (NE_S)))))) || (([] (<> (! (((NE_L==Green)) && (NE_S))))) && ((! ((NE_S) && ((NE_L==Red)))) || (<> ((NE_L==Green)))))) */
 T0_init:
 	do
-	:: (! ((! (((NE_L==Green)) && (NE_S))))) -> goto accept_S4
-	:: (1) -> goto T0_init
+	:: ((! (((NE_L==Green)) && (NE_S)))) -> goto T1_S197
+	:: ((! (((NE_L==Green)) && (NE_S))) && ! ((! ((NE_S) && ((NE_L==Red))))) && ! (((NE_L==Green)))) -> goto accept_S227
+	:: (! ((! (((NE_L==Green)) && (NE_S))))) -> goto T0_S198
+	:: (1) -> goto T0_S197
+	:: (! ((! ((NE_S) && ((NE_L==Red))))) && ! (((NE_L==Green)))) -> goto T0_S227
 	od;
-accept_S4:
+accept_S198:
 	do
-	:: (! ((! (((NE_L==Green)) && (NE_S))))) -> goto accept_S4
+	:: (! ((! (((NE_L==Green)) && (NE_S))))) -> goto T0_S198
+	od;
+accept_S227:
+	do
+	:: (! (((NE_L==Green)))) -> goto T0_S227
+	od;
+T1_S197:
+	do
+	:: (! ((! (((NE_L==Green)) && (NE_S))))) -> goto accept_S198
+	:: (1) -> goto T1_S197
+	od;
+T0_S198:
+	do
+	:: (! ((! (((NE_L==Green)) && (NE_S))))) -> goto T0_S198
+	od;
+T0_S197:
+	do
+	:: (! ((! (((NE_L==Green)) && (NE_S))))) -> goto T0_S198
+	:: ((! (((NE_L==Green)) && (NE_S)))) -> goto T1_S197
+	:: (1) -> goto T0_S197
+	od;
+T0_S227:
+	do
+	:: ((! (((NE_L==Green)) && (NE_S))) && ! (((NE_L==Green)))) -> goto accept_S227
+	:: (! (((NE_L==Green)))) -> goto T0_S227
 	od;
 }
-never p2_5 {    /* !([] (<> (! (((ES_L==Green)) && (ES_S))))) */
+never p2_5 {    /* !((! ([] (<> (! (((ES_L==Green)) && (ES_S)))))) || (([] (<> (! (((ES_L==Green)) && (ES_S))))) && ((! ((ES_S) && ((ES_L==Red)))) || (<> ((ES_L==Green)))))) */
 T0_init:
 	do
-	:: (! ((! (((ES_L==Green)) && (ES_S))))) -> goto accept_S4
-	:: (1) -> goto T0_init
+	:: ((! (((ES_L==Green)) && (ES_S)))) -> goto T1_S197
+	:: ((! (((ES_L==Green)) && (ES_S))) && ! ((! ((ES_S) && ((ES_L==Red))))) && ! (((ES_L==Green)))) -> goto accept_S227
+	:: (! ((! (((ES_L==Green)) && (ES_S))))) -> goto T0_S198
+	:: (1) -> goto T0_S197
+	:: (! ((! ((ES_S) && ((ES_L==Red))))) && ! (((ES_L==Green)))) -> goto T0_S227
 	od;
-accept_S4:
+accept_S198:
 	do
-	:: (! ((! (((ES_L==Green)) && (ES_S))))) -> goto accept_S4
+	:: (! ((! (((ES_L==Green)) && (ES_S))))) -> goto T0_S198
+	od;
+accept_S227:
+	do
+	:: (! (((ES_L==Green)))) -> goto T0_S227
+	od;
+T1_S197:
+	do
+	:: (! ((! (((ES_L==Green)) && (ES_S))))) -> goto accept_S198
+	:: (1) -> goto T1_S197
+	od;
+T0_S198:
+	do
+	:: (! ((! (((ES_L==Green)) && (ES_S))))) -> goto T0_S198
+	od;
+T0_S197:
+	do
+	:: (! ((! (((ES_L==Green)) && (ES_S))))) -> goto T0_S198
+	:: ((! (((ES_L==Green)) && (ES_S)))) -> goto T1_S197
+	:: (1) -> goto T0_S197
+	od;
+T0_S227:
+	do
+	:: ((! (((ES_L==Green)) && (ES_S))) && ! (((ES_L==Green)))) -> goto accept_S227
+	:: (! (((ES_L==Green)))) -> goto T0_S227
 	od;
 }
-never p2_6 {    /* !([] (<> (! (((SW_L==Green)) && (SW_S))))) */
+never p2_6 {    /* !((! ([] (<> (! (((SW_L==Green)) && (SW_S)))))) || (([] (<> (! (((SW_L==Green)) && (SW_S))))) && ((! ((SW_S) && ((SW_L==Red)))) || (<> ((SW_L==Green)))))) */
 T0_init:
 	do
-	:: (! ((! (((SW_L==Green)) && (SW_S))))) -> goto accept_S4
-	:: (1) -> goto T0_init
+	:: ((! (((SW_L==Green)) && (SW_S)))) -> goto T1_S197
+	:: ((! (((SW_L==Green)) && (SW_S))) && ! ((! ((SW_S) && ((SW_L==Red))))) && ! (((SW_L==Green)))) -> goto accept_S227
+	:: (! ((! (((SW_L==Green)) && (SW_S))))) -> goto T0_S198
+	:: (1) -> goto T0_S197
+	:: (! ((! ((SW_S) && ((SW_L==Red))))) && ! (((SW_L==Green)))) -> goto T0_S227
 	od;
-accept_S4:
+accept_S198:
 	do
-	:: (! ((! (((SW_L==Green)) && (SW_S))))) -> goto accept_S4
+	:: (! ((! (((SW_L==Green)) && (SW_S))))) -> goto T0_S198
+	od;
+accept_S227:
+	do
+	:: (! (((SW_L==Green)))) -> goto T0_S227
+	od;
+T1_S197:
+	do
+	:: (! ((! (((SW_L==Green)) && (SW_S))))) -> goto accept_S198
+	:: (1) -> goto T1_S197
+	od;
+T0_S198:
+	do
+	:: (! ((! (((SW_L==Green)) && (SW_S))))) -> goto T0_S198
+	od;
+T0_S197:
+	do
+	:: (! ((! (((SW_L==Green)) && (SW_S))))) -> goto T0_S198
+	:: ((! (((SW_L==Green)) && (SW_S)))) -> goto T1_S197
+	:: (1) -> goto T0_S197
+	od;
+T0_S227:
+	do
+	:: ((! (((SW_L==Green)) && (SW_S))) && ! (((SW_L==Green)))) -> goto accept_S227
+	:: (! (((SW_L==Green)))) -> goto T0_S227
 	od;
 }
