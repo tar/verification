@@ -1,186 +1,300 @@
-never p0_1 {    /* !([] (! (((((NS_L==Green)) && ((WN_L==Green))) && ((SW_L==Green))) && ((EW_L==Green))))) */
+never pS_NS {    /* !([] (! (((((NS@green)) && ((WN@green))) && ((SW@green))) && ((EW@green))))) */
 T0_init:
 	do
-	:: atomic { (! ((! (((((NS_L==Green)) && ((WN_L==Green))) && ((SW_L==Green))) && ((EW_L==Green)))))) -> assert(!(! ((! (((((NS_L==Green)) && ((WN_L==Green))) && ((SW_L==Green))) && ((EW_L==Green))))))) }
+	:: atomic { (! ((! (((((NS@green)) && ((WN@green))) && ((SW@green))) && ((EW@green)))))) -> assert(!(! ((! (((((NS@green)) && ((WN@green))) && ((SW@green))) && ((EW@green))))))) }
 	:: (1) -> goto T0_init
 	od;
 accept_all:
 	skip
 }
-never p0_2 {    /* !([] (! ((((((WN_L==Green)) && ((NS_L==Green))) && ((NE_L==Green))) && ((SW_L==Green))) && ((EW_L==Green))))) */
+never pS_WN {    /* !([] (! ((((((WN@green)) && ((NS@green))) && ((NE@green))) && ((SW@green))) && ((EW@green))))) */
 T0_init:
 	do
-	:: atomic { (! ((! ((((((WN_L==Green)) && ((NS_L==Green))) && ((NE_L==Green))) && ((SW_L==Green))) && ((EW_L==Green)))))) -> assert(!(! ((! ((((((WN_L==Green)) && ((NS_L==Green))) && ((NE_L==Green))) && ((SW_L==Green))) && ((EW_L==Green))))))) }
+	:: atomic { (! ((! ((((((WN@green)) && ((NS@green))) && ((NE@green))) && ((SW@green))) && ((EW@green)))))) -> assert(!(! ((! ((((((WN@green)) && ((NS@green))) && ((NE@green))) && ((SW@green))) && ((EW@green))))))) }
 	:: (1) -> goto T0_init
 	od;
 accept_all:
 	skip
 }
-never p0_3 {    /* !([] (! (((((EW_L==Green)) && ((NE_L==Green))) && ((WN_L==Green))) && ((NS_L==Green))))) */
+never pS_EW {    /* !([] (! (((((EW@green)) && ((NE@green))) && ((WN@green))) && ((NS@green))))) */
 T0_init:
 	do
-	:: atomic { (! ((! (((((EW_L==Green)) && ((NE_L==Green))) && ((WN_L==Green))) && ((NS_L==Green)))))) -> assert(!(! ((! (((((EW_L==Green)) && ((NE_L==Green))) && ((WN_L==Green))) && ((NS_L==Green))))))) }
+	:: atomic { (! ((! (((((EW@green)) && ((NE@green))) && ((WN@green))) && ((NS@green)))))) -> assert(!(! ((! (((((EW@green)) && ((NE@green))) && ((WN@green))) && ((NS@green))))))) }
 	:: (1) -> goto T0_init
 	od;
 accept_all:
 	skip
 }
-never p0_4 {    /* !([] (! (((((NE_L==Green)) && ((WN_L==Green))) && ((ES_L==Green))) && ((EW_L==Green))))) */
+never pS_NE {    /* !([] (! (((((NE@green)) && ((WN@green))) && ((ES@green))) && ((EW@green))))) */
 T0_init:
 	do
-	:: atomic { (! ((! (((((NE_L==Green)) && ((WN_L==Green))) && ((ES_L==Green))) && ((EW_L==Green)))))) -> assert(!(! ((! (((((NE_L==Green)) && ((WN_L==Green))) && ((ES_L==Green))) && ((EW_L==Green))))))) }
+	:: atomic { (! ((! (((((NE@green)) && ((WN@green))) && ((ES@green))) && ((EW@green)))))) -> assert(!(! ((! (((((NE@green)) && ((WN@green))) && ((ES@green))) && ((EW@green))))))) }
 	:: (1) -> goto T0_init
 	od;
 accept_all:
 	skip
 }
-never p0_5 {    /* !([] (! (((((SW_L==Green)) && ((ES_L==Green))) && ((WN_L==Green))) && ((NS_L==Green))))) */
+never pS_ES {    /* !([] (! (((((SW@green)) && ((ES@green))) && ((WN@green))) && ((NS@green))))) */
 T0_init:
 	do
-	:: atomic { (! ((! (((((SW_L==Green)) && ((ES_L==Green))) && ((WN_L==Green))) && ((NS_L==Green)))))) -> assert(!(! ((! (((((SW_L==Green)) && ((ES_L==Green))) && ((WN_L==Green))) && ((NS_L==Green))))))) }
+	:: atomic { (! ((! (((((SW@green)) && ((ES@green))) && ((WN@green))) && ((NS@green)))))) -> assert(!(! ((! (((((SW@green)) && ((ES@green))) && ((WN@green))) && ((NS@green))))))) }
 	:: (1) -> goto T0_init
 	od;
 accept_all:
 	skip
 }
-never p0_6 {    /* !([] (! (((((SW_L==Green)) && ((ES_L==Green))) && ((WN_L==Green))) && ((NS_L==Green))))) */
+never pS_SW {    /* !([] (! (((((SW@green)) && ((ES@green))) && ((WN@green))) && ((NS@green))))) */
 T0_init:
 	do
-	:: atomic { (! ((! (((((SW_L==Green)) && ((ES_L==Green))) && ((WN_L==Green))) && ((NS_L==Green)))))) -> assert(!(! ((! (((((SW_L==Green)) && ((ES_L==Green))) && ((WN_L==Green))) && ((NS_L==Green))))))) }
+	:: atomic { (! ((! (((((SW@green)) && ((ES@green))) && ((WN@green))) && ((NS@green)))))) -> assert(!(! ((! (((((SW@green)) && ((ES@green))) && ((WN@green))) && ((NS@green))))))) }
 	:: (1) -> goto T0_init
 	od;
 accept_all:
 	skip
 }
-never p1_1 {    /* !([] ((! ((NS_S) && ((NS_L==Red)))) || (<> ((NS_L==Green))))) */
+never pF_NS {    /* !([] (<> ((! ([] (<> (! (((NS@green)) && ((gen_t@NSTrue))))))) || ([] ((! (((gen_t@NSTrue)) && ((NS@red)))) || (<> ((NS@green)))))))) */
 T0_init:
 	do
-	:: (! ((! ((NS_S) && ((NS_L==Red))))) && ! (((NS_L==Green)))) -> goto accept_S4
+	:: ((! (((NS@green)) && ((gen_t@NSTrue)))) && ! ((! (((gen_t@NSTrue)) && ((NS@red))))) && ! (((NS@green)))) -> goto accept_S12
+	:: (! ((! (((gen_t@NSTrue)) && ((NS@red))))) && ! (((NS@green)))) -> goto T2_S6
+	:: (1) -> goto T0_S623
 	:: (1) -> goto T0_init
 	od;
-accept_S4:
+accept_S12:
 	do
-	:: (! (((NS_L==Green)))) -> goto accept_S4
+	:: ((! (((NS@green)) && ((gen_t@NSTrue)))) && ! ((! (((gen_t@NSTrue)) && ((NS@red))))) && ! (((NS@green)))) -> goto T0_S12
+	:: (! (((NS@green)))) -> goto T0_S6
+	od;
+accept_S6:
+	do
+	:: (! (((NS@green)))) -> goto T0_S6
+	od;
+T2_S6:
+	do
+	:: (! (((NS@green)))) -> goto T2_S6
+	:: ((! (((NS@green)) && ((gen_t@NSTrue)))) && ! (((NS@green)))) -> goto accept_S6
+	od;
+T0_S12:
+	do
+	:: ((! (((NS@green)) && ((gen_t@NSTrue)))) && ! ((! (((gen_t@NSTrue)) && ((NS@red))))) && ! (((NS@green)))) -> goto accept_S12
+	:: (! ((! (((gen_t@NSTrue)) && ((NS@red))))) && ! (((NS@green)))) -> goto T2_S6
+	:: (! (((NS@green)))) -> goto T0_S6
+	od;
+T0_S6:
+	do
+	:: (! ((! (((gen_t@NSTrue)) && ((NS@red))))) && ! (((NS@green)))) -> goto T2_S6
+	:: ((! (((NS@green)) && ((gen_t@NSTrue)))) && ! ((! (((gen_t@NSTrue)) && ((NS@red))))) && ! (((NS@green)))) -> goto accept_S6
+	:: (! (((NS@green)))) -> goto T0_S6
+	od;
+T0_S623:
+	do
+	:: (! ((! (((gen_t@NSTrue)) && ((NS@red))))) && ! (((NS@green)))) -> goto T2_S6
+	:: ((! (((NS@green)) && ((gen_t@NSTrue)))) && ! ((! (((gen_t@NSTrue)) && ((NS@red))))) && ! (((NS@green)))) -> goto accept_S6
+	:: (1) -> goto T0_S623
 	od;
 }
-never p1_2 {    /* !([] ((! ((WN_S) && ((WN_L==Red)))) || (<> ((WN_L==Green))))) */
+never pF_WN {    /* !([] (<> ((! ([] (<> (! (((WN@green)) && ((gen_t@WNTrue))))))) || ([] ((! (((gen_t@WNTrue)) && ((WN@red)))) || (<> ((WN@green)))))))) */
 T0_init:
 	do
-	:: (! ((! ((WN_S) && ((WN_L==Red))))) && ! (((WN_L==Green)))) -> goto accept_S4
+	:: ((! (((WN@green)) && ((gen_t@WNTrue)))) && ! ((! (((gen_t@WNTrue)) && ((WN@red))))) && ! (((WN@green)))) -> goto accept_S12
+	:: (! ((! (((gen_t@WNTrue)) && ((WN@red))))) && ! (((WN@green)))) -> goto T2_S6
+	:: (1) -> goto T0_S623
 	:: (1) -> goto T0_init
 	od;
-accept_S4:
+accept_S12:
 	do
-	:: (! (((WN_L==Green)))) -> goto accept_S4
+	:: ((! (((WN@green)) && ((gen_t@WNTrue)))) && ! ((! (((gen_t@WNTrue)) && ((WN@red))))) && ! (((WN@green)))) -> goto T0_S12
+	:: (! (((WN@green)))) -> goto T0_S6
+	od;
+accept_S6:
+	do
+	:: (! (((WN@green)))) -> goto T0_S6
+	od;
+T2_S6:
+	do
+	:: (! (((WN@green)))) -> goto T2_S6
+	:: ((! (((WN@green)) && ((gen_t@WNTrue)))) && ! (((WN@green)))) -> goto accept_S6
+	od;
+T0_S12:
+	do
+	:: ((! (((WN@green)) && ((gen_t@WNTrue)))) && ! ((! (((gen_t@WNTrue)) && ((WN@red))))) && ! (((WN@green)))) -> goto accept_S12
+	:: (! ((! (((gen_t@WNTrue)) && ((WN@red))))) && ! (((WN@green)))) -> goto T2_S6
+	:: (! (((WN@green)))) -> goto T0_S6
+	od;
+T0_S6:
+	do
+	:: (! ((! (((gen_t@WNTrue)) && ((WN@red))))) && ! (((WN@green)))) -> goto T2_S6
+	:: ((! (((WN@green)) && ((gen_t@WNTrue)))) && ! ((! (((gen_t@WNTrue)) && ((WN@red))))) && ! (((WN@green)))) -> goto accept_S6
+	:: (! (((WN@green)))) -> goto T0_S6
+	od;
+T0_S623:
+	do
+	:: (! ((! (((gen_t@WNTrue)) && ((WN@red))))) && ! (((WN@green)))) -> goto T2_S6
+	:: ((! (((WN@green)) && ((gen_t@WNTrue)))) && ! ((! (((gen_t@WNTrue)) && ((WN@red))))) && ! (((WN@green)))) -> goto accept_S6
+	:: (1) -> goto T0_S623
 	od;
 }
-never p1_3 {    /* !([] ((! ((EW_S) && ((EW_L==Red)))) || (<> ((EW_L==Green))))) */
+never pF_EW {    /* !([] (<> ((! ([] (<> (! (((EW@green)) && ((gen_t@EWTrue))))))) || ([] ((! (((gen_t@EWTrue)) && ((EW@red)))) || (<> ((EW@green)))))))) */
 T0_init:
 	do
-	:: (! ((! ((EW_S) && ((EW_L==Red))))) && ! (((EW_L==Green)))) -> goto accept_S4
+	:: ((! (((EW@green)) && ((gen_t@EWTrue)))) && ! ((! (((gen_t@EWTrue)) && ((EW@red))))) && ! (((EW@green)))) -> goto accept_S12
+	:: (! ((! (((gen_t@EWTrue)) && ((EW@red))))) && ! (((EW@green)))) -> goto T2_S6
+	:: (1) -> goto T0_S623
 	:: (1) -> goto T0_init
 	od;
-accept_S4:
+accept_S12:
 	do
-	:: (! (((EW_L==Green)))) -> goto accept_S4
+	:: ((! (((EW@green)) && ((gen_t@EWTrue)))) && ! ((! (((gen_t@EWTrue)) && ((EW@red))))) && ! (((EW@green)))) -> goto T0_S12
+	:: (! (((EW@green)))) -> goto T0_S6
+	od;
+accept_S6:
+	do
+	:: (! (((EW@green)))) -> goto T0_S6
+	od;
+T2_S6:
+	do
+	:: (! (((EW@green)))) -> goto T2_S6
+	:: ((! (((EW@green)) && ((gen_t@EWTrue)))) && ! (((EW@green)))) -> goto accept_S6
+	od;
+T0_S12:
+	do
+	:: ((! (((EW@green)) && ((gen_t@EWTrue)))) && ! ((! (((gen_t@EWTrue)) && ((EW@red))))) && ! (((EW@green)))) -> goto accept_S12
+	:: (! ((! (((gen_t@EWTrue)) && ((EW@red))))) && ! (((EW@green)))) -> goto T2_S6
+	:: (! (((EW@green)))) -> goto T0_S6
+	od;
+T0_S6:
+	do
+	:: (! ((! (((gen_t@EWTrue)) && ((EW@red))))) && ! (((EW@green)))) -> goto T2_S6
+	:: ((! (((EW@green)) && ((gen_t@EWTrue)))) && ! ((! (((gen_t@EWTrue)) && ((EW@red))))) && ! (((EW@green)))) -> goto accept_S6
+	:: (! (((EW@green)))) -> goto T0_S6
+	od;
+T0_S623:
+	do
+	:: (! ((! (((gen_t@EWTrue)) && ((EW@red))))) && ! (((EW@green)))) -> goto T2_S6
+	:: ((! (((EW@green)) && ((gen_t@EWTrue)))) && ! ((! (((gen_t@EWTrue)) && ((EW@red))))) && ! (((EW@green)))) -> goto accept_S6
+	:: (1) -> goto T0_S623
 	od;
 }
-never p1_4 {    /* !([] ((! ((NE_S) && ((NE_L==Red)))) || (<> ((NE_L==Green))))) */
+never pF_NE {    /* !([] (<> ((! ([] (<> (! (((NE@green)) && ((gen_t@NETrue))))))) || ([] ((! (((gen_t@NETrue)) && ((NE@red)))) || (<> ((NE@green)))))))) */
 T0_init:
 	do
-	:: (! ((! ((NE_S) && ((NE_L==Red))))) && ! (((NE_L==Green)))) -> goto accept_S4
+	:: ((! (((NE@green)) && ((gen_t@NETrue)))) && ! ((! (((gen_t@NETrue)) && ((NE@red))))) && ! (((NE@green)))) -> goto accept_S12
+	:: (! ((! (((gen_t@NETrue)) && ((NE@red))))) && ! (((NE@green)))) -> goto T2_S6
+	:: (1) -> goto T0_S623
 	:: (1) -> goto T0_init
 	od;
-accept_S4:
+accept_S12:
 	do
-	:: (! (((NE_L==Green)))) -> goto accept_S4
+	:: ((! (((NE@green)) && ((gen_t@NETrue)))) && ! ((! (((gen_t@NETrue)) && ((NE@red))))) && ! (((NE@green)))) -> goto T0_S12
+	:: (! (((NE@green)))) -> goto T0_S6
+	od;
+accept_S6:
+	do
+	:: (! (((NE@green)))) -> goto T0_S6
+	od;
+T2_S6:
+	do
+	:: (! (((NE@green)))) -> goto T2_S6
+	:: ((! (((NE@green)) && ((gen_t@NETrue)))) && ! (((NE@green)))) -> goto accept_S6
+	od;
+T0_S12:
+	do
+	:: ((! (((NE@green)) && ((gen_t@NETrue)))) && ! ((! (((gen_t@NETrue)) && ((NE@red))))) && ! (((NE@green)))) -> goto accept_S12
+	:: (! ((! (((gen_t@NETrue)) && ((NE@red))))) && ! (((NE@green)))) -> goto T2_S6
+	:: (! (((NE@green)))) -> goto T0_S6
+	od;
+T0_S6:
+	do
+	:: (! ((! (((gen_t@NETrue)) && ((NE@red))))) && ! (((NE@green)))) -> goto T2_S6
+	:: ((! (((NE@green)) && ((gen_t@NETrue)))) && ! ((! (((gen_t@NETrue)) && ((NE@red))))) && ! (((NE@green)))) -> goto accept_S6
+	:: (! (((NE@green)))) -> goto T0_S6
+	od;
+T0_S623:
+	do
+	:: (! ((! (((gen_t@NETrue)) && ((NE@red))))) && ! (((NE@green)))) -> goto T2_S6
+	:: ((! (((NE@green)) && ((gen_t@NETrue)))) && ! ((! (((gen_t@NETrue)) && ((NE@red))))) && ! (((NE@green)))) -> goto accept_S6
+	:: (1) -> goto T0_S623
 	od;
 }
-never p1_5 {    /* !([] ((! ((SW_S) && ((SW_L==Red)))) || (<> ((SW_L==Green))))) */
+never pF_ES {    /* !([] (<> ((! ([] (<> (! (((ES@green)) && ((gen_t@ESTrue))))))) || ([] ((! (((gen_t@ESTrue)) && ((ES@red)))) || (<> ((ES@green)))))))) */
 T0_init:
 	do
-	:: (! ((! ((SW_S) && ((SW_L==Red))))) && ! (((SW_L==Green)))) -> goto accept_S4
+	:: ((! (((ES@green)) && ((gen_t@ESTrue)))) && ! ((! (((gen_t@ESTrue)) && ((ES@red))))) && ! (((ES@green)))) -> goto accept_S12
+	:: (! ((! (((gen_t@ESTrue)) && ((ES@red))))) && ! (((ES@green)))) -> goto T2_S6
+	:: (1) -> goto T0_S623
 	:: (1) -> goto T0_init
 	od;
-accept_S4:
+accept_S12:
 	do
-	:: (! (((SW_L==Green)))) -> goto accept_S4
+	:: ((! (((ES@green)) && ((gen_t@ESTrue)))) && ! ((! (((gen_t@ESTrue)) && ((ES@red))))) && ! (((ES@green)))) -> goto T0_S12
+	:: (! (((ES@green)))) -> goto T0_S6
+	od;
+accept_S6:
+	do
+	:: (! (((ES@green)))) -> goto T0_S6
+	od;
+T2_S6:
+	do
+	:: (! (((ES@green)))) -> goto T2_S6
+	:: ((! (((ES@green)) && ((gen_t@ESTrue)))) && ! (((ES@green)))) -> goto accept_S6
+	od;
+T0_S12:
+	do
+	:: ((! (((ES@green)) && ((gen_t@ESTrue)))) && ! ((! (((gen_t@ESTrue)) && ((ES@red))))) && ! (((ES@green)))) -> goto accept_S12
+	:: (! ((! (((gen_t@ESTrue)) && ((ES@red))))) && ! (((ES@green)))) -> goto T2_S6
+	:: (! (((ES@green)))) -> goto T0_S6
+	od;
+T0_S6:
+	do
+	:: (! ((! (((gen_t@ESTrue)) && ((ES@red))))) && ! (((ES@green)))) -> goto T2_S6
+	:: ((! (((ES@green)) && ((gen_t@ESTrue)))) && ! ((! (((gen_t@ESTrue)) && ((ES@red))))) && ! (((ES@green)))) -> goto accept_S6
+	:: (! (((ES@green)))) -> goto T0_S6
+	od;
+T0_S623:
+	do
+	:: (! ((! (((gen_t@ESTrue)) && ((ES@red))))) && ! (((ES@green)))) -> goto T2_S6
+	:: ((! (((ES@green)) && ((gen_t@ESTrue)))) && ! ((! (((gen_t@ESTrue)) && ((ES@red))))) && ! (((ES@green)))) -> goto accept_S6
+	:: (1) -> goto T0_S623
 	od;
 }
-never p1_6 {    /* !([] ((! ((ES_S) && ((ES_L==Red)))) || (<> ((ES_L==Green))))) */
+never pF_SW {    /* !([] (<> ((! ([] (<> (! (((SW@green)) && ((gen_t@SWTrue))))))) || ([] ((! (((gen_t@SWTrue)) && ((SW@red)))) || (<> ((SW@green)))))))) */
 T0_init:
 	do
-	:: (! ((! ((ES_S) && ((ES_L==Red))))) && ! (((ES_L==Green)))) -> goto accept_S4
+	:: ((! (((SW@green)) && ((gen_t@SWTrue)))) && ! ((! (((gen_t@SWTrue)) && ((SW@red))))) && ! (((SW@green)))) -> goto accept_S12
+	:: (! ((! (((gen_t@SWTrue)) && ((SW@red))))) && ! (((SW@green)))) -> goto T2_S6
+	:: (1) -> goto T0_S623
 	:: (1) -> goto T0_init
 	od;
-accept_S4:
+accept_S12:
 	do
-	:: (! (((ES_L==Green)))) -> goto accept_S4
+	:: ((! (((SW@green)) && ((gen_t@SWTrue)))) && ! ((! (((gen_t@SWTrue)) && ((SW@red))))) && ! (((SW@green)))) -> goto T0_S12
+	:: (! (((SW@green)))) -> goto T0_S6
 	od;
-}
-never p2_1 {    /* !([] (<> (! (((NS_L==Green)) && (NS_S))))) */
-T0_init:
+accept_S6:
 	do
-	:: (! ((! (((NS_L==Green)) && (NS_S))))) -> goto accept_S4
-	:: (1) -> goto T0_init
+	:: (! (((SW@green)))) -> goto T0_S6
 	od;
-accept_S4:
+T2_S6:
 	do
-	:: (! ((! (((NS_L==Green)) && (NS_S))))) -> goto accept_S4
+	:: (! (((SW@green)))) -> goto T2_S6
+	:: ((! (((SW@green)) && ((gen_t@SWTrue)))) && ! (((SW@green)))) -> goto accept_S6
 	od;
-}
-never p2_2 {    /* !([] (<> (! (((WN_L==Green)) && (WN_S))))) */
-T0_init:
+T0_S12:
 	do
-	:: (! ((! (((WN_L==Green)) && (WN_S))))) -> goto accept_S4
-	:: (1) -> goto T0_init
+	:: ((! (((SW@green)) && ((gen_t@SWTrue)))) && ! ((! (((gen_t@SWTrue)) && ((SW@red))))) && ! (((SW@green)))) -> goto accept_S12
+	:: (! ((! (((gen_t@SWTrue)) && ((SW@red))))) && ! (((SW@green)))) -> goto T2_S6
+	:: (! (((SW@green)))) -> goto T0_S6
 	od;
-accept_S4:
+T0_S6:
 	do
-	:: (! ((! (((WN_L==Green)) && (WN_S))))) -> goto accept_S4
+	:: (! ((! (((gen_t@SWTrue)) && ((SW@red))))) && ! (((SW@green)))) -> goto T2_S6
+	:: ((! (((SW@green)) && ((gen_t@SWTrue)))) && ! ((! (((gen_t@SWTrue)) && ((SW@red))))) && ! (((SW@green)))) -> goto accept_S6
+	:: (! (((SW@green)))) -> goto T0_S6
 	od;
-}
-never p2_3 {    /* !([] (<> (! (((EW_L==Green)) && (EW_S))))) */
-T0_init:
+T0_S623:
 	do
-	:: (! ((! (((EW_L==Green)) && (EW_S))))) -> goto accept_S4
-	:: (1) -> goto T0_init
-	od;
-accept_S4:
-	do
-	:: (! ((! (((EW_L==Green)) && (EW_S))))) -> goto accept_S4
-	od;
-}
-never p2_4 {    /* !([] (<> (! (((NE_L==Green)) && (NE_S))))) */
-T0_init:
-	do
-	:: (! ((! (((NE_L==Green)) && (NE_S))))) -> goto accept_S4
-	:: (1) -> goto T0_init
-	od;
-accept_S4:
-	do
-	:: (! ((! (((NE_L==Green)) && (NE_S))))) -> goto accept_S4
-	od;
-}
-never p2_5 {    /* !([] (<> (! (((ES_L==Green)) && (ES_S))))) */
-T0_init:
-	do
-	:: (! ((! (((ES_L==Green)) && (ES_S))))) -> goto accept_S4
-	:: (1) -> goto T0_init
-	od;
-accept_S4:
-	do
-	:: (! ((! (((ES_L==Green)) && (ES_S))))) -> goto accept_S4
-	od;
-}
-never p2_6 {    /* !([] (<> (! (((SW_L==Green)) && (SW_S))))) */
-T0_init:
-	do
-	:: (! ((! (((SW_L==Green)) && (SW_S))))) -> goto accept_S4
-	:: (1) -> goto T0_init
-	od;
-accept_S4:
-	do
-	:: (! ((! (((SW_L==Green)) && (SW_S))))) -> goto accept_S4
+	:: (! ((! (((gen_t@SWTrue)) && ((SW@red))))) && ! (((SW@green)))) -> goto T2_S6
+	:: ((! (((SW@green)) && ((gen_t@SWTrue)))) && ! ((! (((gen_t@SWTrue)) && ((SW@red))))) && ! (((SW@green)))) -> goto accept_S6
+	:: (1) -> goto T0_S623
 	od;
 }

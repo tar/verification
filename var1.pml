@@ -26,61 +26,6 @@ bool EW_S = false;
 bool ES_S = false;
 bool SW_S = false;
 
-#define pNS_S (NS_L==Green && WN_L==Green && SW_L==Green && EW_L==Green) 
-#define pWN_S (WN_L==Green && NS_L==Green && NE_L==Green && SW_L==Green && EW_L==Green) 
-#define pEW_S (EW_L==Green && NE_L==Green && WN_L==Green && NS_L==Green) 
-#define pNE_S (NE_L==Green && WN_L==Green && ES_L==Green && EW_L==Green)
-#define pSW_S (SW_L==Green && ES_L==Green && WN_L==Green && NS_L==Green)
-#define pES_S (SW_L==Green && ES_L==Green && WN_L==Green && NS_L==Green)
-
-#define pNS_L (NS_S && (NS_L==Red))
-#define qNS_L (NS_L==Green)
-
-#define pWN_L (WN_S && (WN_L==Red))
-#define qWN_L (WN_L==Green)
-
-#define pEW_L (EW_S && (EW_L==Red))
-#define qEW_L (EW_L==Green)
-
-#define pNE_L (NE_S && (NE_L==Red))
-#define qNE_L (NE_L==Green)
-
-#define pSW_L (SW_S && (SW_L==Red))
-#define qSW_L (SW_L==Green)
-
-#define pES_L (ES_S && (ES_L==Red))
-#define qES_L (ES_L==Green)
-
-#define pNS_F ((NS_L==Green) && NS_S)
-#define pWN_F ((WN_L==Green) && WN_S)
-#define pEW_F ((EW_L==Green) && EW_S)
-#define pNE_F ((NE_L==Green) && NE_S)
-#define pSW_F ((SW_L==Green) && SW_S)
-#define pES_F ((ES_L==Green) && ES_S)
-
-/*Safety*/
-ltl p0_1 {[] !pNS_S}
-ltl p0_2 {[] !pWN_S}
-ltl p0_3 {[] !pEW_S}
-ltl p0_4 {[] !pNE_S}
-ltl p0_5 {[] !pSW_S}
-ltl p0_6 {[] !pES_S}
-/*Liveness*/
-ltl p1_1 {[] (!pNS_L || (<> qNS_L))}
-ltl p1_2 {[] (pWN_L -> (<> qWN_L))}
-ltl p1_3 {[] (pEW_L -> (<> qEW_L))}
-ltl p1_4 {[] (pNE_L -> (<> qNE_L))}
-ltl p1_5 {[] (pSW_L -> (<> qSW_L))}
-ltl p1_6 {[] (pES_L -> (<> qES_L))}
-
-/*Fairness*/
-ltl p2_1 {[] <> !pNS_F -> ([] <> (!pNS_F) && (pNS_L -> (<> qNS_L)))}
-ltl p2_2 {[] <> !pWN_F -> ([] <> (!pWN_F) && (pWN_L -> (<> qWN_L)))}
-ltl p2_3 {[] <> !pEW_F -> ([] <> (!pEW_F) && (pEW_L -> (<> qEW_L)))}
-ltl p2_4 {[] <> !pNE_F -> ([] <> (!pNE_F) && (pNE_L -> (<> qNE_L)))}
-ltl p2_5 {[] <> !pES_F -> ([] <> (!pES_F) && (pES_L -> (<> qES_L)))}
-ltl p2_6 {[] <> !pSW_F -> ([] <> (!pSW_F) && (pSW_L -> (<> qSW_L)))}
-
 
 /* Synchronization channels */
 
@@ -115,54 +60,50 @@ init
 proctype gen_t ()
 {
     accpet: do
-        :: true->
-             if
-                :: (NS_L==Green || !NS_S) -> NS_S = !NS_S;
-                :: else -> skip;
-            fi
-        :: true->
-            if
-                :: (WN_L==Green || !WN_S) -> WN_S = !WN_S;
-                :: else -> skip;
-            fi
-        ::  true->
-            if
-                :: (NE_L==Green || !NE_S) -> NE_S = !NE_S;
-                :: else -> skip;
-            fi
-        :: true->
-            if
-                :: (EW_L==Green || !EW_S) -> EW_S = !EW_S;
-                :: else -> skip;
-            fi
-        :: true->
-            if
-                :: (ES_L==Green || !ES_S) -> ES_S = !ES_S;
-                :: else -> skip;
-            fi
-        :: true->
-            if
-                :: (SW_L==Green || !SW_S) -> SW_S = !SW_S;
-                :: else -> skip;
-            fi
-   od;
+                :: (!NS_S) -> 
+       NSTrue:     NS_S = true;
+	        :: (NS_L==Green && NS_S) -> 
+       NSFalse:    NS_S = false;
+                :: (!WN_S) -> 
+       WNTrue:     WN_S = true;
+                :: (WN_L==Green) ->
+       WNFalse:    WN_S = false
+                :: (!NE_S) -> 
+       NETrue:     NE_S = true;
+                :: (NE_L==Green) -> 
+       NEFalse:    NE_S = false;
+                :: (!EW_S) -> 
+       EWTrue:     EW_S = true;
+                :: (EW_L==Green) -> 
+       EWFalse:    EW_S = false;
+                :: (!ES_S) -> 
+       ESTrue:     ES_S = true;
+                :: (ES_L==Green) -> 
+       ESFalse:    ES_S = false;
+                :: (!SW_S) -> 
+       SWTrue:     SW_S = true;
+                :: (SW_L==Green) -> 
+       SWFalse:    SW_S = false;
+            od;
 }
 /* NS controller */
 proctype NS ()
 {
     end: 
     	do
-    		:: NS_S ->
+    	    :: NS_S ->
     			/* Wait for resources */
                 NS_WN_EW ? true; NS_WN_SW ? true;
                 NS_L = Green;
+	green:
                 if
                 	/* Wait for end of car queue */
                     :: !NS_S -> skip;
                 fi;
                 NS_L = Red; 
-                NS_WN_EW ! true; NS_WN_SW ! true;
-		od;
+        red:
+		NS_WN_EW ! true; NS_WN_SW ! true;
+	od;
 }
 
 /* WN controller */
@@ -174,12 +115,14 @@ proctype WN ()
                 /* Wait for resources */
                 NS_WN_EW ? true; NS_WN_SW ? true; NE_WN_EW ? true;
                 WN_L = Green;
+    green:
                 if
                 	/* Wait for end of car queue */
                     :: !WN_S -> skip;
                 fi;
                 WN_L = Red;
-                NS_WN_EW ! true; NS_WN_SW ! true; NE_WN_EW ! true;
+    red:
+		NS_WN_EW ! true; NS_WN_SW ! true; NE_WN_EW ! true;
     	od;
 }
 
@@ -192,11 +135,13 @@ proctype NE ()
     			/* Wait for resources */
                 NE_WN_EW  ? true; NE_ES ? true;
                 NE_L = Green;
+    green:
                 if
                     /* Wait for end of car queue */
                     :: !NE_S -> skip;
                 fi;
                 NE_L = Red;
+    red:
                 NE_WN_EW ! true; NE_ES ! true; 
    		od;
 }
@@ -210,11 +155,13 @@ proctype EW ()
 				/* Wait for resources */
                 NS_WN_EW ? true; NE_WN_EW ? true;
                 EW_L = Green;
+	green:
                 if
                     /* Wait for end of car queue */
                     :: !EW_S -> skip;
                 fi;
                 EW_L = Red;
+	red:
                 NS_WN_EW ! true; NE_WN_EW ! true;
    		od;
 }
@@ -228,11 +175,13 @@ proctype ES ()
 				/* Wait for resources */
                 ES_SW ? true; NE_ES ? true;
                 ES_L = Green;
+	green:
                 if
                     /* Wait for end of car queue */
                     :: !ES_S -> skip;
                 fi;
                 ES_L = Red;
+	red:
                 ES_SW ! true; NE_ES ! true;
    		od;
 }
@@ -246,11 +195,62 @@ proctype SW ()
     			/* Wait for resources */
                 NS_WN_SW ? true; ES_SW ? true;
                 SW_L = Green;
+	green:
                 if
                     /* Wait for end of car queue */
                     :: !SW_S -> skip;
                 fi;
                 SW_L = Red;
+        red:
                 NS_WN_SW ! true; ES_SW ! true;
    		od;
 }
+
+#define pNS_S (NS@green && WN@green && SW@green && EW@green) 
+#define pWN_S (WN@green && NS@green && NE@green && SW@green && EW@green) 
+#define pEW_S (EW@green && NE@green && WN@green && NS@green) 
+#define pNE_S (NE@green && WN@green && ES@green && EW@green)
+#define pSW_S (SW@green && ES@green && WN@green && NS@green)
+#define pES_S (SW@green && ES@green && WN@green && NS@green)
+
+#define pNS_L (gen_t@NSTrue && (NS@red))
+#define qNS_L (NS@green)
+
+#define pWN_L (gen_t@WNTrue && (WN@red))
+#define qWN_L (WN@green)
+
+#define pEW_L (gen_t@EWTrue && (EW@red))
+#define qEW_L (EW@green)
+
+#define pNE_L (gen_t@NETrue && (NE@red))
+#define qNE_L (NE@green)
+
+#define pSW_L (gen_t@SWTrue && (SW@red))
+#define qSW_L (SW@green)
+
+#define pES_L (gen_t@ESTrue && (ES@red))
+#define qES_L (ES@green)
+
+#define pNS_F ((NS@green) && gen_t@NSTrue)
+#define pWN_F ((WN@green) && gen_t@WNTrue)
+#define pEW_F ((EW@green) && gen_t@EWTrue)
+#define pNE_F ((NE@green) && gen_t@NETrue)
+#define pSW_F ((SW@green) && gen_t@SWTrue)
+#define pES_F ((ES@green) && gen_t@ESTrue)
+
+/*Safety*/
+ltl pS_NS {[] !pNS_S}
+ltl pS_WN {[] !pWN_S}
+ltl pS_EW {[] !pEW_S}
+ltl pS_NE {[] !pNE_S}
+ltl pS_ES {[] !pES_S}
+ltl pS_SW {[] !pSW_S}
+
+/*Fairness -> Liveness*/
+
+ltl pF_NS {[]<> (([]<> !(pNS_F)) -> ([] (pNS_L -> <> qNS_L)))}
+ltl pF_WN {[]<> (([]<> !(pWN_F)) -> ([] (pWN_L -> <> qWN_L)))}
+ltl pF_EW {[]<> (([]<> !(pEW_F)) -> ([] (pEW_L -> <> qEW_L)))}
+ltl pF_NE {[]<> (([]<> !(pNE_F)) -> ([] (pNE_L -> <> qNE_L)))}
+ltl pF_ES {[]<> (([]<> !(pES_F)) -> ([] (pES_L -> <> qES_L)))}
+ltl pF_SW {[]<> (([]<> !(pSW_F)) -> ([] (pSW_L -> <> qSW_L)))}
