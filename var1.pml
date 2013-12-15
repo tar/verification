@@ -59,10 +59,10 @@ init
 /* Traffic generation process */
 proctype gen_t ()
 {
-    accpet: do
+    end: do
                 :: (!NS_S) -> 
        NSTrue:     NS_S = true;
-	        :: (NS_L==Green && NS_S) -> 
+	        :: (NS_L==Green) -> 
        NSFalse:    NS_S = false;
                 :: (!WN_S) -> 
        WNTrue:     WN_S = true;
