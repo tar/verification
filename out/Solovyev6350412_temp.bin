@@ -1,0 +1,212 @@
+/*
+    Task numbers: 
+    2 - WN, NE;
+    5 - NS, SW;
+    13 - NE, ES.
+*/
+
+#define MAX_CARS    2
+
+/* Traffic lights states */
+mtype = {RED, GREEN};
+
+/* Channels */
+chan channel_WN_NS_SW = [1] of {bit};
+chan channel_WN_NE = [1] of {bit};
+chan channel_NE_ES = [1] of {bit};
+chan channel_ES_SW = [1] of {bit};
+
+/* Channels for car passes */
+chan carsPassWN = [1] of {bit};
+chan carsPassNE = [1] of {bit};
+chan carsPassNS = [1] of {bit};
+chan carsPassSW = [1] of {bit};
+chan carsPassES = [1] of {bit};
+
+bool sensorWN = false;
+bool sensorNE = false;
+bool sensorNS = false;
+bool sensorSW = false;
+bool sensorES = false;
+
+mtype lightWN = RED;
+mtype lightNE = RED;
+mtype lightNS = RED;
+mtype lightSW = RED;
+mtype lightES = RED;
+
+proctype trafficManager () {
+    byte cntWN = 0;
+    byte cntNE = 0;
+    byte cntNS = 0;
+    byte cntSW = 0;
+    byte cntES = 0;
+end:
+    do
+        :: (!sensorWN && (cntWN < MAX_CARS)) ->
+            cntWN++;
+            sensorWN = true;
+            carsPassWN ! 1;
+        :: (!sensorNE && (cntNE < MAX_CARS)) ->
+            cntNE++;
+            sensorNE = true;
+            carsPassNE ! 1;
+        :: (!sensorNS && (cntNS < MAX_CARS)) ->
+            cntNS++;
+            sensorNS = true;
+            carsPassNS ! 1;
+        :: (!sensorSW && (cntSW < MAX_CARS)) ->
+            cntSW++;
+            sensorSW = true;
+            carsPassSW ! 1;
+        :: (!sensorES && (cntES < MAX_CARS)) ->
+            cntES++;
+            sensorES = true;
+            carsPassES ! 1;
+        :: ((cntWN > 0) && (cntNE > 0) && (cntNS > 0) && (cntSW > 0) && (cntES > 0)) ->
+            cntWN = 0;
+            cntNE = 0;
+            cntNS = 0;
+            cntSW = 0;
+            cntES = 0;
+    od;
+}
+
+/* WN direction process */
+proctype dirWN () {
+end:
+    do
+        ::
+        /* Wait for the resources */
+        carsPassWN ? 1;
+        channel_WN_NS_SW ? 1; channel_WN_NE ? 1;
+        /* We can go! */
+        lightWN = GREEN;
+        sensorNS = false;
+        lightWN = RED;
+        /* Return resources */
+        channel_WN_NS_SW ! 1; channel_WN_NE ! 1;
+    od;
+}
+
+/* NE direction process */
+proctype dirNE () {
+end:
+    do
+        ::
+        /* Wait for the resources */
+        carsPassNE ? 1;
+        channel_NE_ES ? 1; channel_WN_NE ? 1;
+        /* We can go! */
+        lightNE = GREEN;
+        sensorNE = false;
+        lightNE = RED;
+        /* Return resources */
+        channel_NE_ES ! 1; channel_WN_NE ! 1;
+    od;
+}
+
+/* NS direction process */
+proctype dirNS () {
+end:
+    do
+        ::
+        /* Wait for the resources */
+        carsPassNS ? 1;
+        channel_WN_NS_SW ? 1;
+        /* We can go! */
+        lightNS = GREEN;
+        sensorNS = false;
+        lightNS = RED;
+        /* Return resources */
+        channel_WN_NS_SW ! 1;
+    od;
+}
+
+/* SW direction process */
+proctype dirSW () {
+end:
+    do
+        ::
+        /* Wait for the resources */
+        carsPassSW ? 1;
+        channel_ES_SW ? 1; channel_WN_NS_SW ? 1;
+        /* We can go! */
+        lightSW = GREEN;
+        sensorSW = false;
+        lightSW = RED;
+        /* Return resources */
+        channel_ES_SW ! 1; channel_WN_NS_SW ! 1;
+    od;
+}
+
+/* ES direction process */
+proctype dirES () {
+end:        
+    do
+        ::
+        /* Wait for the resources */
+        carsPassES ? 1;
+        channel_ES_SW ? 1; channel_NE_ES ? 1;
+        /* We can go! */
+        lightES = GREEN;
+        sensorES = false;
+        lightES = RED;
+        /* Return resources */
+        channel_ES_SW ! 1; channel_NE_ES ! 1;
+    od;
+}
+
+/* Init process */
+init {
+    /* All resources are freed at start */
+    atomic {
+        channel_WN_NS_SW ! 1;
+        channel_WN_NE ! 1;
+        channel_NE_ES ! 1;
+        channel_ES_SW ! 1;
+        
+        run trafficManager ();
+        
+        run dirWN ();
+        run dirNE ();
+        run dirNS ();
+        run dirSW ();
+        run dirES ();
+    }
+}
+
+/* Verification formulas */
+
+/* Safety */
+ltl s {[] !(((lightNS == GREEN) && (lightSW == GREEN) && (lightWN == GREEN))
+			|| ((lightWN == GREEN) && (lightSW == GREEN) && (lightNS == GREEN) && (lightNE == GREEN))
+			|| ((lightNE == GREEN) && (lightES == GREEN) && (lightWN == GREEN))
+			|| ((lightES == GREEN) && (lightSW == GREEN) && (lightNE == GREEN))
+			|| ((lightSW == GREEN) && (lightES == GREEN) && (lightWN == GREEN) && (lightNS  == GREEN)))};
+/**********/
+			
+/* Liveness */
+ltl lWN {[] ((sensorWN && (lightWN == RED)) -> <> (lightWN == GREEN))};
+
+ltl lNE {[] ((sensorNE && (lightNE == RED)) -> <> (lightNE == GREEN))};
+
+ltl lNS {[] ((sensorNS && (lightNS == RED)) -> <> (lightNS == GREEN))};
+
+ltl lSW {[] ((sensorSW && (lightSW == RED)) -> <> (lightSW == GREEN))};
+
+ltl lES {[] ((sensorES && (lightES == RED)) -> <> (lightES == GREEN))};
+/**********/
+
+/* Fairness */
+ltl fWN {[]<> !((lightWN == GREEN) && sensorWN)};
+
+ltl fNE {[]<> !((lightNE == GREEN) && sensorNE)};
+
+ltl fNS {[]<> !((lightNS == GREEN) && sensorNS)};
+
+ltl fSW {[]<> !((lightSW == GREEN) && sensorSW)};
+
+ltl fES {[]<> !((lightES == GREEN) && sensorES)};
+/************/
+/*************************/
