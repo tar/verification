@@ -3,7 +3,7 @@
 /* Exercise 1,12,15 (WN,NS) (NE, EW) (SW, ES)*/
 /* Types of signals */
 
-#define MAX 2
+#define MAX 5
 
 mtype = {Red, Green};
 
@@ -32,11 +32,11 @@ bool SW_S = false;
 
 /* Synchronization channels */
 
-chan NS_WN_EW = [0] of {bool};
-chan NS_WN_SW = [0] of {bool};
-chan NE_WN_EW = [0] of {bool};
-chan NE_ES = [0] of {bool};
-chan ES_SW = [0] of {bool};
+chan NS_WN_EW = [1] of {bool};
+chan NS_WN_SW = [1] of {bool};
+chan NE_WN_EW = [1] of {bool};
+chan NE_ES = [1] of {bool};
+chan ES_SW = [1] of {bool};
 
 
 init
@@ -70,28 +70,29 @@ active proctype gen_t ()
                 :: (WN_L==Green) ->
        WNFalse:    WN_S = false
                 :: (!NE_S && ne<MAX) -> 
-       NETrue:     atomic{NE_S = true;wn=wn+1;}
+       NETrue:     atomic{NE_S = true;ne=ne+1;}
                 :: (NE_L==Green) -> 
        NEFalse:    NE_S = false;
                 :: (!EW_S && ew<MAX) -> 
-       EWTrue:     atomic{EW_S = true;wn=wn+1;}
+       EWTrue:     atomic{EW_S = true;ew=ew+1;}
                 :: (EW_L==Green) -> 
        EWFalse:    EW_S = false;
                 :: (!ES_S && es<MAX) -> 
-       ESTrue:     atomic{ES_S = true;wn=wn+1;}
+       ESTrue:     atomic{ES_S = true;es=es+1;}
                 :: (ES_L==Green) -> 
        ESFalse:    ES_S = false;
                 :: (!SW_S && sw<MAX) -> 
-       SWTrue:     atomic{SW_S = true;wn=wn+1;}
+       SWTrue:     atomic{SW_S = true;sw=sw+1;}
                 :: (SW_L==Green) -> 
        SWFalse:    SW_S = false;
-       			:: (ns==MAX && wn==MAX && ne==MAX && es==MAX && ew==MAX && sw==MAX) ->
-       					ns=0;
+       			:: (ns>=MAX && wn>=MAX && ne>=MAX && es>=MAX && ew>=MAX && sw>=MAX) ->
+       					atomic{ns=0;
 						wn=0;
 						ne=0;
 						es=0;
 						ew=0;
 						sw=0;
+					}
             od;
 }
 /* NS controller */
@@ -102,14 +103,14 @@ active proctype NS ()
     	    :: NS_S ->
     			/* Wait for resources */
                 NS_WN_EW ? true; NS_WN_SW ? true;
-                NS_L = Green;
-	green:
+        green:  NS_L = Green;
+	
                 if
                 	/* Wait for end of car queue */
                     :: !NS_S -> skip;
                 fi;
-                NS_L = Red; 
-        red:
+        red:        NS_L = Red; 
+        
 		NS_WN_EW ! true; NS_WN_SW ! true;
 	od;
 }
@@ -122,14 +123,14 @@ active proctype WN ()
             :: WN_S ->
                 /* Wait for resources */
                 NS_WN_EW ? true; NS_WN_SW ? true; NE_WN_EW ? true;
-                WN_L = Green;
-    green:
+    green:            atomic{ WN_L = Green; printf("hui");}
+    
                 if
                 	/* Wait for end of car queue */
                     :: !WN_S -> skip;
                 fi;
-                WN_L = Red;
-    red:
+    red:            WN_L = Red;
+    
 		NS_WN_EW ! true; NS_WN_SW ! true; NE_WN_EW ! true;
     	od;
 }
@@ -142,14 +143,14 @@ active proctype NE ()
         	:: NE_S ->
     			/* Wait for resources */
                 NE_WN_EW  ? true; NE_ES ? true;
-                NE_L = Green;
-    green:
+    green:            NE_L = Green;
+    
                 if
                     /* Wait for end of car queue */
                     :: !NE_S -> skip;
                 fi;
-                NE_L = Red;
-    red:
+    red:            NE_L = Red;
+    
                 NE_WN_EW ! true; NE_ES ! true; 
    		od;
 }
@@ -162,14 +163,14 @@ active proctype EW ()
     		:: EW_S ->
 				/* Wait for resources */
                 NS_WN_EW ? true; NE_WN_EW ? true;
-                EW_L = Green;
-	green:
+        green:        EW_L = Green;
+	
                 if
                     /* Wait for end of car queue */
                     :: !EW_S -> skip;
                 fi;
-                EW_L = Red;
-	red:
+        red:        EW_L = Red;
+	
                 NS_WN_EW ! true; NE_WN_EW ! true;
    		od;
 }
@@ -182,14 +183,14 @@ active proctype ES ()
             :: ES_S ->
 				/* Wait for resources */
                 ES_SW ? true; NE_ES ? true;
-                ES_L = Green;
-	green:
+        green:        ES_L = Green;
+	
                 if
                     /* Wait for end of car queue */
                     :: !ES_S -> skip;
                 fi;
-                ES_L = Red;
-	red:
+        red:        ES_L = Red;
+	
                 ES_SW ! true; NE_ES ! true;
    		od;
 }
@@ -202,14 +203,14 @@ active proctype SW ()
         	:: SW_S ->
     			/* Wait for resources */
                 NS_WN_SW ? true; ES_SW ? true;
-                SW_L = Green;
-	green:
+        green:        SW_L = Green;
+	
                 if
                     /* Wait for end of car queue */
                     :: !SW_S -> skip;
                 fi;
-                SW_L = Red;
-        red:
+        red:        SW_L = Red;
+        
                 NS_WN_SW ! true; ES_SW ! true;
    		od;
 }
@@ -256,6 +257,9 @@ ltl pS_SW {[] !pSW_S}
 
 /*Fairness -> Liveness*/
 
+
+
+ltl pL_NS {[] (pNS_L -> <> qNS_L)}
 ltl pF_NS {([]<> !(pWN_F || pEW_F || pSW_F )) -> ([] (pNS_L -> <> qNS_L))}
 /*ltl pF_WN {([]<> !(pWN_F)) -> ([] (pWN_L -> <> qWN_L))}*/
 /*ltl pF_EW {([]<> !(pEW_F)) -> ([] (pEW_L -> <> qEW_L))}*/

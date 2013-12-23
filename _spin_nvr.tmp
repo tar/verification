@@ -52,6 +52,17 @@ T0_init:
 accept_all:
 	skip
 }
+never pL_NS {    /* !([] ((! (((gen_t@NSTrue)) && ((NS@red)))) || (<> ((NS@green))))) */
+T0_init:
+	do
+	:: (! ((! (((gen_t@NSTrue)) && ((NS@red))))) && ! (((NS@green)))) -> goto accept_S4
+	:: (1) -> goto T0_init
+	od;
+accept_S4:
+	do
+	:: (! (((NS@green)))) -> goto accept_S4
+	od;
+}
 never pF_NS {    /* !((! ([] (<> (! (((((WN@green)) && ((gen_t@WNTrue))) || (((EW@green)) && ((gen_t@EWTrue)))) || (((SW@green)) && ((gen_t@SWTrue)))))))) || ([] ((! (((gen_t@NSTrue)) && ((NS@red)))) || (<> ((NS@green)))))) */
 T0_init:
 	do
