@@ -3,7 +3,7 @@
 /* Exercise 1,12,15 (WN,NS) (NE, EW) (SW, ES)*/
 /* Types of signals */
 
-#define MAX 5
+#define MAX 3
 
 mtype = {Red, Green};
 
@@ -39,16 +39,6 @@ chan NE_ES = [1] of {bool};
 chan ES_SW = [1] of {bool};
 
 
-init
-{
-    atomic{
-        NS_WN_EW ! true;
-        NS_WN_SW ! true;
-        NE_WN_EW ! true;
-        NE_ES ! true;
-        ES_SW ! true;
-   };
-}
 
 /* Traffic generation process */
 active proctype gen_t ()
@@ -63,27 +53,27 @@ active proctype gen_t ()
     end: do
                 :: (!NS_S && ns<MAX) -> 
        NSTrue:     atomic{NS_S = true;ns=ns+1;}
-	        :: (NS_L==Green) -> 
+	        :: (NS_S && NS_L==Green) -> 
        NSFalse:    NS_S = false;
                 :: (!WN_S && wn<MAX) -> 
        WNTrue:     atomic{WN_S = true;wn=wn+1;}
-                :: (WN_L==Green) ->
+                :: (WN_S && WN_L==Green) ->
        WNFalse:    WN_S = false
                 :: (!NE_S && ne<MAX) -> 
        NETrue:     atomic{NE_S = true;ne=ne+1;}
-                :: (NE_L==Green) -> 
+                :: (NE_S && NE_L==Green) -> 
        NEFalse:    NE_S = false;
                 :: (!EW_S && ew<MAX) -> 
        EWTrue:     atomic{EW_S = true;ew=ew+1;}
-                :: (EW_L==Green) -> 
+                :: (EW_S && EW_L==Green) -> 
        EWFalse:    EW_S = false;
                 :: (!ES_S && es<MAX) -> 
        ESTrue:     atomic{ES_S = true;es=es+1;}
-                :: (ES_L==Green) -> 
+                :: (ES_S && ES_L==Green) -> 
        ESFalse:    ES_S = false;
                 :: (!SW_S && sw<MAX) -> 
        SWTrue:     atomic{SW_S = true;sw=sw+1;}
-                :: (SW_L==Green) -> 
+                :: (SW_S && SW_L==Green) -> 
        SWFalse:    SW_S = false;
        			:: (ns>=MAX && wn>=MAX && ne>=MAX && es>=MAX && ew>=MAX && sw>=MAX) ->
        					atomic{ns=0;
@@ -98,6 +88,8 @@ active proctype gen_t ()
 /* NS controller */
 active proctype NS ()
 {
+	        NS_WN_EW ! true;
+        NS_WN_SW ! true;
     end: 
     	do
     	    :: NS_S ->
@@ -123,7 +115,7 @@ active proctype WN ()
             :: WN_S ->
                 /* Wait for resources */
                 NS_WN_EW ? true; NS_WN_SW ? true; NE_WN_EW ? true;
-    green:            atomic{ WN_L = Green; printf("hui");}
+    green:            atomic{ WN_L = Green;}
     
                 if
                 	/* Wait for end of car queue */
@@ -138,6 +130,8 @@ active proctype WN ()
 /* NE controller */
 active proctype NE ()
 {
+        NE_WN_EW ! true;
+        NE_ES ! true;
     end:
     	do
         	:: NE_S ->
@@ -178,6 +172,7 @@ active proctype EW ()
 /* ES controller */
 active proctype ES ()
 {
+        ES_SW ! true;
     end: 
     	do
             :: ES_S ->

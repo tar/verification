@@ -1,82 +1,40 @@
-never pS_NS {    /* !([] (! (((((NS@green)) && ((WN@green))) && ((SW@green))) && ((EW@green))))) */
+never safety {    /* !((((([] (! (((lightState[0]==1)) && (((lightState[1]==1)) || (((lightState[2]==1)) || (((lightState[3]==1)) || ((lightState[4]==1)))))))) && ([] (! (((lightState[1]==1)) && (((lightState[0]==1)) || (((lightState[2]==1)) || ((lightState[3]==1)))))))) && ([] (! (((lightState[2]==1)) && (((lightState[0]==1)) || (((lightState[1]==1)) || ((lightState[4]==1)))))))) && ([] (! (((lightState[3]==1)) && (((lightState[0]==1)) || ((lightState[1]==1))))))) && ([] (! (((lightState[4]==1)) && (((lightState[0]==1)) || ((lightState[2]==1))))))) */
 T0_init:
 	do
-	:: atomic { (! ((! (((((NS@green)) && ((WN@green))) && ((SW@green))) && ((EW@green)))))) -> assert(!(! ((! (((((NS@green)) && ((WN@green))) && ((SW@green))) && ((EW@green))))))) }
+	:: atomic { (((! ((! (((lightState[0]==1)) && (((lightState[1]==1)) || (((lightState[2]==1)) || (((lightState[3]==1)) || ((lightState[4]==1))))))))) || (((! ((! (((lightState[1]==1)) && (((lightState[0]==1)) || (((lightState[2]==1)) || ((lightState[3]==1)))))))) || (((! ((! (((lightState[2]==1)) && (((lightState[0]==1)) || (((lightState[1]==1)) || ((lightState[4]==1)))))))) || (((! ((! (((lightState[3]==1)) && (((lightState[0]==1)) || ((lightState[1]==1))))))) || (! ((! (((lightState[4]==1)) && (((lightState[0]==1)) || ((lightState[2]==1))))))))))))))) -> assert(!(((! ((! (((lightState[0]==1)) && (((lightState[1]==1)) || (((lightState[2]==1)) || (((lightState[3]==1)) || ((lightState[4]==1))))))))) || (((! ((! (((lightState[1]==1)) && (((lightState[0]==1)) || (((lightState[2]==1)) || ((lightState[3]==1)))))))) || (((! ((! (((lightState[2]==1)) && (((lightState[0]==1)) || (((lightState[1]==1)) || ((lightState[4]==1)))))))) || (((! ((! (((lightState[3]==1)) && (((lightState[0]==1)) || ((lightState[1]==1))))))) || (! ((! (((lightState[4]==1)) && (((lightState[0]==1)) || ((lightState[2]==1)))))))))))))))) }
 	:: (1) -> goto T0_init
 	od;
 accept_all:
 	skip
 }
-never pS_WN {    /* !([] (! ((((((WN@green)) && ((NS@green))) && ((NE@green))) && ((SW@green))) && ((EW@green))))) */
+never fairness {    /* !((((([] (<> (! (((lightState[0]==1)) && (hasTraffic[0]))))) && ([] (<> (! (((lightState[1]==1)) && (hasTraffic[1])))))) && ([] (<> (! (((lightState[2]==1)) && (hasTraffic[2])))))) && ([] (<> (! (((lightState[3]==1)) && (hasTraffic[3])))))) && ([] (<> (! (((lightState[4]==1)) && (hasTraffic[4])))))) */
 T0_init:
 	do
-	:: atomic { (! ((! ((((((WN@green)) && ((NS@green))) && ((NE@green))) && ((SW@green))) && ((EW@green)))))) -> assert(!(! ((! ((((((WN@green)) && ((NS@green))) && ((NE@green))) && ((SW@green))) && ((EW@green))))))) }
+	:: (! ((! (((lightState[4]==1)) && (hasTraffic[4]))))) -> goto accept_S8
+	:: (! ((! (((lightState[3]==1)) && (hasTraffic[3]))))) -> goto accept_S13
+	:: (! ((! (((lightState[2]==1)) && (hasTraffic[2]))))) -> goto accept_S18
+	:: (! ((! (((lightState[1]==1)) && (hasTraffic[1]))))) -> goto accept_S23
+	:: (! ((! (((lightState[0]==1)) && (hasTraffic[0]))))) -> goto accept_S28
 	:: (1) -> goto T0_init
 	od;
-accept_all:
-	skip
-}
-never pS_EW {    /* !([] (! (((((EW@green)) && ((NE@green))) && ((WN@green))) && ((NS@green))))) */
-T0_init:
+accept_S8:
 	do
-	:: atomic { (! ((! (((((EW@green)) && ((NE@green))) && ((WN@green))) && ((NS@green)))))) -> assert(!(! ((! (((((EW@green)) && ((NE@green))) && ((WN@green))) && ((NS@green))))))) }
-	:: (1) -> goto T0_init
+	:: (! ((! (((lightState[4]==1)) && (hasTraffic[4]))))) -> goto accept_S8
 	od;
-accept_all:
-	skip
-}
-never pS_NE {    /* !([] (! (((((NE@green)) && ((WN@green))) && ((ES@green))) && ((EW@green))))) */
-T0_init:
+accept_S13:
 	do
-	:: atomic { (! ((! (((((NE@green)) && ((WN@green))) && ((ES@green))) && ((EW@green)))))) -> assert(!(! ((! (((((NE@green)) && ((WN@green))) && ((ES@green))) && ((EW@green))))))) }
-	:: (1) -> goto T0_init
+	:: (! ((! (((lightState[3]==1)) && (hasTraffic[3]))))) -> goto accept_S13
 	od;
-accept_all:
-	skip
-}
-never pS_ES {    /* !([] (! (((((SW@green)) && ((ES@green))) && ((WN@green))) && ((NS@green))))) */
-T0_init:
+accept_S18:
 	do
-	:: atomic { (! ((! (((((SW@green)) && ((ES@green))) && ((WN@green))) && ((NS@green)))))) -> assert(!(! ((! (((((SW@green)) && ((ES@green))) && ((WN@green))) && ((NS@green))))))) }
-	:: (1) -> goto T0_init
+	:: (! ((! (((lightState[2]==1)) && (hasTraffic[2]))))) -> goto accept_S18
 	od;
-accept_all:
-	skip
-}
-never pS_SW {    /* !([] (! (((((SW@green)) && ((ES@green))) && ((WN@green))) && ((NS@green))))) */
-T0_init:
+accept_S23:
 	do
-	:: atomic { (! ((! (((((SW@green)) && ((ES@green))) && ((WN@green))) && ((NS@green)))))) -> assert(!(! ((! (((((SW@green)) && ((ES@green))) && ((WN@green))) && ((NS@green))))))) }
-	:: (1) -> goto T0_init
+	:: (! ((! (((lightState[1]==1)) && (hasTraffic[1]))))) -> goto accept_S23
 	od;
-accept_all:
-	skip
-}
-never pL_NS {    /* !([] ((! (((gen_t@NSTrue)) && ((NS@red)))) || (<> ((NS@green))))) */
-T0_init:
+accept_S28:
 	do
-	:: (! ((! (((gen_t@NSTrue)) && ((NS@red))))) && ! (((NS@green)))) -> goto accept_S4
-	:: (1) -> goto T0_init
-	od;
-accept_S4:
-	do
-	:: (! (((NS@green)))) -> goto accept_S4
-	od;
-}
-never pF_NS {    /* !((! ([] (<> (! (((((WN@green)) && ((gen_t@WNTrue))) || (((EW@green)) && ((gen_t@EWTrue)))) || (((SW@green)) && ((gen_t@SWTrue)))))))) || ([] ((! (((gen_t@NSTrue)) && ((NS@red)))) || (<> ((NS@green)))))) */
-T0_init:
-	do
-	:: ((! (((((WN@green)) && ((gen_t@WNTrue))) || (((EW@green)) && ((gen_t@EWTrue)))) || (((SW@green)) && ((gen_t@SWTrue))))) && ! ((! (((gen_t@NSTrue)) && ((NS@red))))) && ! (((NS@green)))) -> goto accept_S69
-	:: (! ((! (((gen_t@NSTrue)) && ((NS@red))))) && ! (((NS@green)))) -> goto T0_S69
-	:: (1) -> goto T0_init
-	od;
-accept_S69:
-	do
-	:: (! (((NS@green)))) -> goto T0_S69
-	od;
-T0_S69:
-	do
-	:: ((! (((((WN@green)) && ((gen_t@WNTrue))) || (((EW@green)) && ((gen_t@EWTrue)))) || (((SW@green)) && ((gen_t@SWTrue))))) && ! (((NS@green)))) -> goto accept_S69
-	:: (! (((NS@green)))) -> goto T0_S69
+	:: (! ((! (((lightState[0]==1)) && (hasTraffic[0]))))) -> goto accept_S28
 	od;
 }
