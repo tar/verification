@@ -90,34 +90,3 @@ init {
         FOR_ALL_DIRECTIONS(run lightProc)
 }
 
-#define IS_RED(D1) (lightState[D1] == RED)
-#define IS_GREEN(D1) (lightState[D1] == GREEN)
-
-#define ANY_IS_GREEN2(D1, D2) (IS_GREEN(D1) || IS_GREEN(D2))
-#define ANY_IS_GREEN3(D1, D2, D3) (IS_GREEN(D1) || ANY_IS_GREEN2(D2, D3))
-#define ANY_IS_GREEN4(D1, D2, D3, D4) (IS_GREEN(D1) || ANY_IS_GREEN3(D2, D3, D4))
-
-#define SAFETY_FOR2(DIR, D1, D2) ([] !(IS_GREEN(DIR) && ANY_IS_GREEN2(D1, D2)))
-#define SAFETY_FOR3(DIR, D1, D2, D3) ([] !(IS_GREEN(DIR) && ANY_IS_GREEN3(D1, D2, D3)))
-#define SAFETY_FOR4(DIR, D1, D2, D3, D4) ([] !(IS_GREEN(DIR) && ANY_IS_GREEN4(D1, D2, D3, D4)))
-
-ltl safety {
-        SAFETY_FOR4(SW, WE, NS, ES, WN)
-        && SAFETY_FOR3(WE, SW, NS, ES)
-        && SAFETY_FOR3(NS, SW, WE, WN)
-        && SAFETY_FOR2(ES, SW, WE)
-        && SAFETY_FOR2(WN, SW, NS)
-}
-
-#define LIVENESS_FOR(DIR) ([] (hasTraffic[DIR] && (IS_RED(DIR)) -> <> (IS_GREEN(DIR))))
-
-
-#define FAIRNESS_FOR(DIR) [] <> !(IS_GREEN(DIR) && hasTraffic[DIR])
-
-ltl fairness {
-        FAIRNESS_FOR(SW) && FAIRNESS_FOR(WE) && FAIRNESS_FOR(NS) && FAIRNESS_FOR(ES) && FAIRNESS_FOR(WN);
-}
-
-ltl liveness {
-        (FAIRNESS_FOR(SW) && FAIRNESS_FOR(WE) && FAIRNESS_FOR(NS) && FAIRNESS_FOR(ES) && FAIRNESS_FOR(WN)) -> (LIVENESS_FOR(SW));
-}

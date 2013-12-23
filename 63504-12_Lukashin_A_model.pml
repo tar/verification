@@ -3,7 +3,7 @@
 /* Exercise 1,12,15 (WN,NS) (NE, EW) (SW, ES)*/
 /* Types of signals */
 
-#define MAX 3
+#define MAX 2
 
 mtype = {Red, Green};
 
@@ -256,6 +256,7 @@ ltl pS_SW {[] !pSW_S}
 
 ltl pL_NS {[] (pNS_L -> <> qNS_L)}
 ltl pF_NS {([]<> !(pWN_F || pEW_F || pSW_F )) -> ([] (pNS_L -> <> qNS_L))}
+ltl pF {[]<> !(pNS_F || pWN_F || pNE_F || pEW_F || pES_F || pSW_F)}
 /*ltl pF_WN {([]<> !(pWN_F)) -> ([] (pWN_L -> <> qWN_L))}*/
 /*ltl pF_EW {([]<> !(pEW_F)) -> ([] (pEW_L -> <> qEW_L))}*/
 /*ltl pF_NE {([]<> !(pNE_F)) -> ([] (pNE_L -> <> qNE_L))}*/
