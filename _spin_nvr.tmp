@@ -52,10 +52,10 @@ T0_init:
 accept_all:
 	skip
 }
-never pL_NS {    /* !([] ((! (((gen_t@NSTrue)) && ((NS@red)))) || (<> ((NS@green))))) */
+never pL_NS {    /* !([] ((! (((NS@NSTrue)) && ((NS@red)))) || (<> ((NS@green))))) */
 T0_init:
 	do
-	:: (! ((! (((gen_t@NSTrue)) && ((NS@red))))) && ! (((NS@green)))) -> goto accept_S4
+	:: (! ((! (((NS@NSTrue)) && ((NS@red))))) && ! (((NS@green)))) -> goto accept_S4
 	:: (1) -> goto T0_init
 	od;
 accept_S4:
@@ -63,31 +63,69 @@ accept_S4:
 	:: (! (((NS@green)))) -> goto accept_S4
 	od;
 }
-never pF_NS {    /* !((! ([] (<> (! (((((WN@green)) && ((gen_t@WNTrue))) || (((EW@green)) && ((gen_t@EWTrue)))) || (((SW@green)) && ((gen_t@SWTrue)))))))) || ([] ((! (((gen_t@NSTrue)) && ((NS@red)))) || (<> ((NS@green)))))) */
+never pL_WN {    /* !([] ((! (((WN@WNTrue)) && ((WN@red)))) || (<> ((WN@green))))) */
 T0_init:
 	do
-	:: ((! (((((WN@green)) && ((gen_t@WNTrue))) || (((EW@green)) && ((gen_t@EWTrue)))) || (((SW@green)) && ((gen_t@SWTrue))))) && ! ((! (((gen_t@NSTrue)) && ((NS@red))))) && ! (((NS@green)))) -> goto accept_S69
-	:: (! ((! (((gen_t@NSTrue)) && ((NS@red))))) && ! (((NS@green)))) -> goto T0_S69
-	:: (1) -> goto T0_init
-	od;
-accept_S69:
-	do
-	:: (! (((NS@green)))) -> goto T0_S69
-	od;
-T0_S69:
-	do
-	:: ((! (((((WN@green)) && ((gen_t@WNTrue))) || (((EW@green)) && ((gen_t@EWTrue)))) || (((SW@green)) && ((gen_t@SWTrue))))) && ! (((NS@green)))) -> goto accept_S69
-	:: (! (((NS@green)))) -> goto T0_S69
-	od;
-}
-never pF {    /* !([] (<> (! ((((((((NS@green)) && ((gen_t@NSTrue))) || (((WN@green)) && ((gen_t@WNTrue)))) || (((NE@green)) && ((gen_t@NETrue)))) || (((EW@green)) && ((gen_t@EWTrue)))) || (((ES@green)) && ((gen_t@ESTrue)))) || (((SW@green)) && ((gen_t@SWTrue))))))) */
-T0_init:
-	do
-	:: (! ((! ((((((((NS@green)) && ((gen_t@NSTrue))) || (((WN@green)) && ((gen_t@WNTrue)))) || (((NE@green)) && ((gen_t@NETrue)))) || (((EW@green)) && ((gen_t@EWTrue)))) || (((ES@green)) && ((gen_t@ESTrue)))) || (((SW@green)) && ((gen_t@SWTrue))))))) -> goto accept_S4
+	:: (! ((! (((WN@WNTrue)) && ((WN@red))))) && ! (((WN@green)))) -> goto accept_S4
 	:: (1) -> goto T0_init
 	od;
 accept_S4:
 	do
-	:: (! ((! ((((((((NS@green)) && ((gen_t@NSTrue))) || (((WN@green)) && ((gen_t@WNTrue)))) || (((NE@green)) && ((gen_t@NETrue)))) || (((EW@green)) && ((gen_t@EWTrue)))) || (((ES@green)) && ((gen_t@ESTrue)))) || (((SW@green)) && ((gen_t@SWTrue))))))) -> goto accept_S4
+	:: (! (((WN@green)))) -> goto accept_S4
+	od;
+}
+never pL_EW {    /* !([] ((! (((EW@EWTrue)) && ((EW@red)))) || (<> ((EW@green))))) */
+T0_init:
+	do
+	:: (! ((! (((EW@EWTrue)) && ((EW@red))))) && ! (((EW@green)))) -> goto accept_S4
+	:: (1) -> goto T0_init
+	od;
+accept_S4:
+	do
+	:: (! (((EW@green)))) -> goto accept_S4
+	od;
+}
+never pL_NE {    /* !([] ((! (((NE@NETrue)) && ((NE@red)))) || (<> ((NE@green))))) */
+T0_init:
+	do
+	:: (! ((! (((NE@NETrue)) && ((NE@red))))) && ! (((NE@green)))) -> goto accept_S4
+	:: (1) -> goto T0_init
+	od;
+accept_S4:
+	do
+	:: (! (((NE@green)))) -> goto accept_S4
+	od;
+}
+never pL_ES {    /* !([] ((! (((ES@ESTrue)) && ((ES@red)))) || (<> ((ES@green))))) */
+T0_init:
+	do
+	:: (! ((! (((ES@ESTrue)) && ((ES@red))))) && ! (((ES@green)))) -> goto accept_S4
+	:: (1) -> goto T0_init
+	od;
+accept_S4:
+	do
+	:: (! (((ES@green)))) -> goto accept_S4
+	od;
+}
+never pL_SW {    /* !([] ((! (((SW@SWTrue)) && ((SW@red)))) || (<> ((SW@green))))) */
+T0_init:
+	do
+	:: (! ((! (((SW@SWTrue)) && ((SW@red))))) && ! (((SW@green)))) -> goto accept_S4
+	:: (1) -> goto T0_init
+	od;
+accept_S4:
+	do
+	:: (! (((SW@green)))) -> goto accept_S4
+	od;
+}
+never pF {    /* !([] (<> ((((((! (((NS@green)) && ((NS@NSTrue)))) && (! (((WN@green)) && ((WN@WNTrue))))) && (! (((NE@green)) && ((NE@NETrue))))) && (! (((EW@green)) && ((EW@EWTrue))))) && (! (((ES@green)) && ((ES@ESTrue))))) && (! (((SW@green)) && ((SW@SWTrue))))))) */
+T0_init:
+	do
+	:: (! (((((((! (((NS@green)) && ((NS@NSTrue)))) && (! (((WN@green)) && ((WN@WNTrue))))) && (! (((NE@green)) && ((NE@NETrue))))) && (! (((EW@green)) && ((EW@EWTrue))))) && (! (((ES@green)) && ((ES@ESTrue))))) && (! (((SW@green)) && ((SW@SWTrue))))))) -> goto accept_S4
+	:: (1) -> goto T0_init
+	od;
+accept_S4:
+	do
+	:: (! (((((((! (((NS@green)) && ((NS@NSTrue)))) && (! (((WN@green)) && ((WN@WNTrue))))) && (! (((NE@green)) && ((NE@NETrue))))) && (! (((EW@green)) && ((EW@EWTrue))))) && (! (((ES@green)) && ((ES@ESTrue))))) && (! (((SW@green)) && ((SW@SWTrue))))))) -> goto accept_S4
 	od;
 }

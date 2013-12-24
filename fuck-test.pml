@@ -15,7 +15,7 @@
 typedef Direction {
         chan mutex = [1] of {bool}
         byte conflictCount;
-        byte conflicts[DIRECTION_COUNT-1];
+        byte conflicts[4];
 };
 
 Direction directions[DIRECTION_COUNT];
@@ -81,23 +81,22 @@ proctype lightProc(byte id) {
 	DO(SW);
 
 
-#define INIT_DIRECTION(DIR, CONFLICT_COUNT, C0, C1, C2, C3, C4) \
+#define INIT_DIRECTION(DIR, CONFLICT_COUNT, C0, C1, C2, C3) \
         lightState[DIR] = RED; \
         hasTraffic[DIR] = false; \
         directions[DIR].conflictCount = CONFLICT_COUNT; \
         directions[DIR].conflicts[0] = C0; \
         directions[DIR].conflicts[1] = C1; \
         directions[DIR].conflicts[2] = C2; \
-        directions[DIR].conflicts[3] = C3; \
-	directions[DIR].conflicts[4] = C4;
+        directions[DIR].conflicts[3] = C3; 
 
 init {
-        INIT_DIRECTION(NS, 3, WN, EW, SW, -1, -1);
-        INIT_DIRECTION(WN, 4, NS, EW, NE, ES, -1);
-        INIT_DIRECTION(NE, 3, WN, EW, ES, -1, -1);
-        INIT_DIRECTION(EW, 3, NS, WN, NE, -1, -1);
-	INIT_DIRECTION(ES, 2, NE, SW, 0, -1, -1);
-        INIT_DIRECTION(SW, 3, WN, NS, ES, -1, -1);
+        INIT_DIRECTION(NS, 3, WN, EW, SW, -1);
+        INIT_DIRECTION(WN, 4, NS, EW, NE, ES);
+        INIT_DIRECTION(NE, 3, WN, EW, ES, -1);
+        INIT_DIRECTION(EW, 3, NS, WN, NE, -1);
+	INIT_DIRECTION(ES, 2, NE, SW, -1, -1);
+        INIT_DIRECTION(SW, 3, NS, WN, ES, -1);
 
         FOR_ALL_DIRECTIONS(run trafficProc)
         FOR_ALL_DIRECTIONS(run lightProc)
@@ -127,12 +126,12 @@ init {
 #define pSW_L (hasTraffic[SW] && IS_RED(SW))
 #define qSW_L (IS_GREEN(SW))
 
-#define pNS_F (IS_GREEN(NS) && hasTraffic[NS])
-#define pWN_F (IS_GREEN(WN) && hasTraffic[WN])
-#define pNE_F (IS_GREEN(NE) && hasTraffic[NE])
-#define pEW_F (IS_GREEN(EW) && hasTraffic[EW])
-#define pES_F (IS_GREEN(ES) && hasTraffic[ES])
-#define pSW_F (IS_GREEN(SW) && hasTraffic[SW])
+#define pNS_F (hasTraffic[NS])
+#define pWN_F (hasTraffic[WN])
+#define pNE_F (hasTraffic[NE])
+#define pEW_F (hasTraffic[EW])
+#define pES_F (hasTraffic[ES])
+#define pSW_F (hasTraffic[SW])
 
 /*Safety*/
 ltl pS_NS {[] !pNS_S}
@@ -146,7 +145,7 @@ ltl pS_SW {[] !pSW_S}
 /*Liveness*/
 
 /*ltl pL_NS {[] (pNS_L -> <> qNS_L)}*/
-ltl pL_NS {([]<> !(pWN_F || pEW_F || pSW_F )) -> ([] (pNS_L -> <> qNS_L))}
+ltl pL_NS {([]<> (pWN_F && pEW_F && pSW_F )) -> ([] (pNS_L -> <> qNS_L))}
 /*ltl pF_WN {([]<> !(pWN_F)) -> ([] (pWN_L -> <> qWN_L))}*/
 /*ltl pF_EW {([]<> !(pEW_F)) -> ([] (pEW_L -> <> qEW_L))}*/
 /*ltl pF_NE {([]<> !(pNE_F)) -> ([] (pNE_L -> <> qNE_L))}*/
