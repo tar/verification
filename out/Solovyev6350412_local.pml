@@ -219,15 +219,14 @@ ltl s {[] !((dirNS@green && dirSW@green && dirWN@green)
 			|| (dirSW@green && dirES@green && dirWN@green && dirNS@green))};
 /**********/
 /* Liveness */
-/**
-ltl wn { ([] <> !(dirWN@green && trafficManager@wnTrue)) -> ([] <> (!(dirWN@green && trafficManager@wnTrue) && ([] ((trafficManager@wnTrue && dirWN@red) -> <> dirWN@green)))) };
-/**
-ltl ne { ([] <> !(dirNE@green && trafficManager@neTrue)) -> ([] <> (!(dirNE@green && trafficManager@neTrue) && ([] ((trafficManager@neTrue && dirNE@red) -> <> dirNE@green)))) };
-/**/
-ltl ns { ([] <> !(dirNS@green && trafficManager@nsTrue)) -> ([] <> (!(dirNS@green && trafficManager@nsTrue) && ([] ((trafficManager@nsTrue && dirNS@red) -> <> dirNS@green)))) };
-/**
-ltl sw { ([] <> !(dirSW@green && trafficManager@swTrue)) -> ([] <> (!(dirSW@green && trafficManager@swTrue) && ([] ((trafficManager@swTrue && dirSW@red) -> <> dirSW@green)))) };
-/**
-ltl es { ([] <> !(dirES@green && trafficManager@esTrue)) -> ([] <> (!(dirES@green && trafficManager@esTrue) && ([] ((trafficManager@esTrue && dirES@red) -> <> dirES@green)))) };
+ltl wn {( []<> (trafficManager@esTrue && trafficManager@neTrue && trafficManager@nsTrue && trafficManager@swTrue)) -> ([] ((trafficManager@wnTrue && dirWN@red) -> <> dirWN@green))};
+
+ltl ne {( []<> (trafficManager@esTrue && trafficManager@wnTrue && trafficManager@nsTrue && trafficManager@swTrue)) -> ([] ((trafficManager@neTrue && dirNE@red) -> <> dirNE@green))};
+
+ltl ns {( []<> (trafficManager@esTrue && trafficManager@neTrue && trafficManager@wnTrue && trafficManager@swTrue)) -> ([] ((trafficManager@nsTrue && dirNS@red) -> <> dirNS@green))};
+
+ltl sw {( []<> (trafficManager@esTrue && trafficManager@neTrue && trafficManager@nsTrue && trafficManager@wnTrue)) -> ([] ((trafficManager@swTrue && dirSW@red) -> <> dirSW@green))};
+
+ltl es {( []<> (trafficManager@wnTrue && trafficManager@neTrue && trafficManager@nsTrue && trafficManager@swTrue)) -> ([] ((trafficManager@esTrue && dirES@red) -> <> dirES@green))};
 /************/
 /*************************/

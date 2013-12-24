@@ -231,12 +231,12 @@ proctype SW ()
 #define pES_L (gen_t@ESTrue && (ES@red))
 #define qES_L (ES@green)
 
-#define pNS_F ((NS@green) && gen_t@NSTrue)
-#define pWN_F ((WN@green) && gen_t@WNTrue)
-#define pEW_F ((EW@green) && gen_t@EWTrue)
-#define pNE_F ((NE@green) && gen_t@NETrue)
-#define pSW_F ((SW@green) && gen_t@SWTrue)
-#define pES_F ((ES@green) && gen_t@ESTrue)
+#define pNS_F (gen_t@NSTrue)
+#define pWN_F (gen_t@WNTrue)
+#define pEW_F (gen_t@EWTrue)
+#define pNE_F (gen_t@NETrue)
+#define pSW_F (gen_t@SWTrue)
+#define pES_F (gen_t@ESTrue)
 
 /*Safety*/
 ltl pS_NS {[] !pNS_S}
@@ -248,9 +248,9 @@ ltl pS_SW {[] !pSW_S}
 
 /*Fairness -> Liveness*/
 
-ltl pF_NS {[]<> (([]<> !(pNS_F)) -> ([] (pNS_L -> <> qNS_L)))}
-ltl pF_WN {[]<> (([]<> !(pWN_F)) -> ([] (pWN_L -> <> qWN_L)))}
-ltl pF_EW {[]<> (([]<> !(pEW_F)) -> ([] (pEW_L -> <> qEW_L)))}
-ltl pF_NE {[]<> (([]<> !(pNE_F)) -> ([] (pNE_L -> <> qNE_L)))}
-ltl pF_ES {[]<> (([]<> !(pES_F)) -> ([] (pES_L -> <> qES_L)))}
-ltl pF_SW {[]<> (([]<> !(pSW_F)) -> ([] (pSW_L -> <> qSW_L)))}
+ltl pF_NS {([]<> (pWN_F && pSW_F && pEW_F)) -> ([] (pNS_L -> <> qNS_L))}
+ltl pF_WN {([]<> (pNS_F && pEW_F && pSW_F && pNE_F)) -> ([] (pWN_L -> <> qWN_L))}
+ltl pF_EW {([]<> (pNS_F && pNE_F && pWN_F)) -> ([] (pEW_L -> <> qEW_L))}
+ltl pF_NE {([]<> (pEW_F && pWN_F && pES_F)) -> ([] (pNE_L -> <> qNE_L))}
+ltl pF_ES {([]<> (pNE_F && pSW_F)) -> ([] (pES_L -> <> qES_L))}
+ltl pF_SW {([]<> (pNS_F && pWN_F && pES_F)) -> ([] (pSW_L -> <> qSW_L))}
